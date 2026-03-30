@@ -85,7 +85,7 @@ export default function WebGLGallery({ images, height = '100vh' }: Props) {
     const container = containerRef.current
     let rafId: number
     let isDown = false
-    let startY = 0
+    let startX = 0
     let cleanupFn: (() => void) | undefined
 
     const scroll = { ease: 0.05, current: 0, target: 0, last: 0 }
@@ -147,8 +147,8 @@ export default function WebGLGallery({ images, height = '100vh' }: Props) {
               uPlaneSize: { value: [0, 0] },
               uImageSize: { value: [0, 0] },
               uSpeed: { value: 0 },
-              rotationAxis: { value: [0, 1, 0] },
-              distortionAxis: { value: [1, 1, 0] },
+              rotationAxis: { value: [1, 0, 0] },
+              distortionAxis: { value: [0, 1, 0] },
               uDistortion: { value: 3 },
               uViewportSize: { value: [viewport.width, viewport.height] },
               uTime: { value: 0 },
@@ -172,23 +172,23 @@ export default function WebGLGallery({ images, height = '100vh' }: Props) {
           this.plane.scale.y = (vp.height * y) / sc.height
           this.program.uniforms.uPlaneSize.value = [this.plane.scale.x, this.plane.scale.y]
           this.program.uniforms.uViewportSize.value = [vp.width, vp.height]
-          this.padding = 0.8
-          this.height = this.plane.scale.y + this.padding
+          this.padding = 0.5
+          this.height = this.plane.scale.x + this.padding
           this.heightTotal = this.height * this.length
           this.y = this.height * this.index
         }
         update(scroll: any, dir: string) {
-          this.plane.position.y = this.y - scroll.current - this.extra
-          const pos = map(this.plane.position.y, -viewport.height, viewport.height, 5, 15)
+          this.plane.position.x = -(this.y - scroll.current - this.extra)
+          const pos = map(this.plane.position.x, -viewport.width, viewport.width, 5, 15)
           this.program.uniforms.uPosition.value = pos
           this.program.uniforms.uTime.value += 0.04
           this.program.uniforms.uSpeed.value = scroll.current
-          const planeOff = this.plane.scale.y / 2
-          const vpOff = viewport.height
-          const isBefore = this.plane.position.y + planeOff < -vpOff
-          const isAfter = this.plane.position.y - planeOff > vpOff
-          if (dir === 'up' && isBefore) this.extra -= this.heightTotal
-          if (dir === 'down' && isAfter) this.extra += this.heightTotal
+          const planeOff = this.plane.scale.x / 2
+          const vpOff = viewport.width
+          const isBefore = this.plane.position.x - planeOff > vpOff
+          const isAfter = this.plane.position.x + planeOff < -vpOff
+          if (isBefore) this.extra -= this.heightTotal
+          if (isAfter) this.extra += this.heightTotal
         }
       }
 
@@ -196,8 +196,9 @@ export default function WebGLGallery({ images, height = '100vh' }: Props) {
       onResize()
 
       function update() {
+        scroll.target += 0.003  // auto-advance
         scroll.current = lerp(scroll.current, scroll.target, scroll.ease)
-        direction = scroll.current > scroll.last ? 'up' : 'down'
+        direction = scroll.current > scroll.last ? 'right' : 'left'
         medias.forEach(m => m.update(scroll, direction))
         renderer.render({ scene, camera })
         scroll.last = scroll.current
@@ -206,16 +207,16 @@ export default function WebGLGallery({ images, height = '100vh' }: Props) {
       update()
 
       // Events
-      const onWheel = (e: WheelEvent) => { scroll.target += e.deltaY * 0.005 }
+      const onWheel = (e: WheelEvent) => { scroll.target += (e.deltaX || e.deltaY) * 0.005 }
       const onDown = (e: MouseEvent | TouchEvent) => {
         isDown = true
-        startY = 'touches' in e ? e.touches[0].clientY : e.clientY
+        startX = 'touches' in e ? e.touches[0].clientX : e.clientX
         ;(scroll as any).position = scroll.current
       }
       const onMove = (e: MouseEvent | TouchEvent) => {
         if (!isDown) return
-        const y = 'touches' in e ? e.touches[0].clientY : e.clientY
-        scroll.target = (scroll as any).position + (startY - y) * 0.1
+        const x = 'touches' in e ? e.touches[0].clientX : e.clientX
+        scroll.target = (scroll as any).position + (x - startX) * 0.1
       }
       const onUp = () => { isDown = false }
 
@@ -251,7 +252,7 @@ export default function WebGLGallery({ images, height = '100vh' }: Props) {
   return (
     <div
       ref={containerRef}
-      style={{ position: 'relative', width: '100%', height, overflow: 'hidden', cursor: 'grab' }}
+      style={{ position: 'relative', width: '100%', height, overflow: 'hidden', cursor: 'ew-resize' }}
     >
       <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
     </div>
