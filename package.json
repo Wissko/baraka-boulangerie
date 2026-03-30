@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "framer-motion": "^11.0.0",
+    "gsap": "^3.14.2",
     "next": "14.2.3",
     "normalize-wheel": "^1.0.1",
     "ogl": "^1.0.11",
