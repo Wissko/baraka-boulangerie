@@ -79,37 +79,37 @@ export default function BarakaMenu() {
           WebkitTapHighlightColor: 'transparent',
         }}
       >
-        {/* B. logo */}
+        {/* BH Logo — B noir, H rouge comme le logo officiel */}
         <span style={{
           fontFamily: 'var(--font-cormorant)',
           fontStyle: 'italic',
-          fontWeight: 500,
-          fontSize: '18px',
-          color: '#C9A96E',
+          fontWeight: 600,
+          fontSize: '22px',
           lineHeight: 1,
-        }}>B.</span>
+          letterSpacing: '-0.02em',
+          display: 'flex',
+          alignItems: 'baseline',
+          gap: '0',
+        }}>
+          <span style={{ color: '#FAF7F2' }}>B</span>
+          <span style={{ color: '#E81C1C' }}>H</span>
+        </span>
 
         {/* Separator */}
-        <span style={{ display: 'block', width: '1px', height: '1px', background: 'rgba(201,169,110,0.3)' }} />
+        <span style={{ display: 'block', width: '16px', height: '1px', background: 'rgba(250,247,242,0.2)' }} />
 
         {/* Menu — vertical writing */}
         <span style={{
           fontFamily: 'var(--font-dm-sans)',
           fontWeight: 400,
-          fontSize: '8px',
-          letterSpacing: '0.2em',
+          fontSize: '7px',
+          letterSpacing: '0.22em',
           textTransform: 'uppercase',
-          color: 'rgba(250,247,242,0.65)',
+          color: 'rgba(250,247,242,0.5)',
           writingMode: 'vertical-rl',
           textOrientation: 'mixed',
           transform: 'rotate(180deg)',
         }}>Menu</span>
-
-        {/* Hamburger */}
-        <span style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <span style={{ display: 'block', height: '1.5px', width: '16px', background: 'rgba(250,247,242,0.7)' }} />
-          <span style={{ display: 'block', height: '1.5px', width: '10px', background: 'rgba(250,247,242,0.7)' }} />
-        </span>
       </motion.button>
 
       {/* ── OVERLAY — plein écran sombre ── */}
@@ -186,14 +186,18 @@ export default function BarakaMenu() {
                 left: '1.5rem',
                 fontFamily: 'var(--font-cormorant)',
                 fontStyle: 'italic',
-                fontSize: '1.4rem',
-                color: '#C9A96E',
-                letterSpacing: '0.06em',
+                fontSize: '1.6rem',
+                letterSpacing: '0.04em',
                 zIndex: 10,
+                display: 'flex',
+                alignItems: 'baseline',
+                gap: '2px',
               }}
               onClick={() => setOpen(false)}
             >
-              Baraka
+              <span style={{ color: '#FAF7F2' }}>B</span>
+              <span style={{ color: '#E81C1C' }}>H</span>
+              <span style={{ color: 'rgba(250,247,242,0.35)', fontSize: '0.65rem', letterSpacing: '0.22em', textTransform: 'uppercase', marginLeft: '0.5rem', fontStyle: 'normal', fontFamily: 'var(--font-dm-sans)', fontWeight: 300 }}>Boulangerie</span>
             </Link>
 
             {/* Nav links */}
@@ -213,7 +217,7 @@ export default function BarakaMenu() {
                   initial={{ opacity: 0, x: -32 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.07 * i + 0.12, duration: 0.42, ease: EASE }}
-                  style={{ borderBottom: '1px solid rgba(201,169,110,0.1)' }}
+                  style={{ borderBottom: '1px solid rgba(232,28,28,0.1)' }}
                 >
                   <Link
                     href={link.href}
@@ -225,12 +229,12 @@ export default function BarakaMenu() {
                       fontSize: 'clamp(2.8rem, 9vw, 6.5rem)',
                       lineHeight: 1.15,
                       padding: 'clamp(0.6rem, 1.8vw, 1rem) 0',
-                      color: pathname === link.href ? '#C9A96E' : '#FAF7F2',
+                      color: pathname === link.href ? '#E81C1C' : '#FAF7F2',
                       transition: 'color 0.15s',
                       letterSpacing: '0.02em',
                     }}
-                    onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#C9A96E')}
-                    onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = pathname === link.href ? '#C9A96E' : '#FAF7F2')}
+                    onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#E81C1C')}
+                    onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = pathname === link.href ? '#E81C1C' : '#FAF7F2')}
                   >
                     {link.label}
                   </Link>
@@ -242,7 +246,7 @@ export default function BarakaMenu() {
             <div
               style={{
                 padding: 'clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 8vw, 5rem)',
-                borderTop: '1px solid rgba(201,169,110,0.1)',
+                borderTop: '1px solid rgba(232,28,28,0.1)',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'flex-end',
@@ -276,7 +280,7 @@ export default function BarakaMenu() {
                       fontFamily: 'var(--font-dm-sans)',
                       fontWeight: 300,
                       fontSize: '0.7rem',
-                      color: '#C9A96E',
+                      color: 'rgba(250,247,242,0.4)',
                       letterSpacing: '0.04em',
                     }}
                   >
