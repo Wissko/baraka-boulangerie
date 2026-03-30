@@ -225,6 +225,33 @@ export default function BarakaMenu() {
             overflowY: 'auto',
           }}>
 
+            {/* Logo BH dans le panel */}
+            <div style={{
+              position: 'absolute',
+              top: '1.5rem',
+              left: '2.5rem',
+              fontFamily: 'var(--font-cormorant)',
+              fontStyle: 'italic',
+              fontWeight: 600,
+              fontSize: '1.5rem',
+              letterSpacing: '-0.01em',
+              display: 'flex',
+              alignItems: 'baseline',
+            }}>
+              <span style={{ color: '#1A1410' }}>B</span>
+              <span style={{ color: '#E81C1C' }}>H</span>
+              <span style={{
+                fontFamily: 'var(--font-dm-sans)',
+                fontStyle: 'normal',
+                fontWeight: 300,
+                fontSize: '0.55rem',
+                letterSpacing: '0.22em',
+                textTransform: 'uppercase',
+                color: 'rgba(26,20,16,0.35)',
+                marginLeft: '0.6rem',
+              }}>Boulangerie</span>
+            </div>
+
             {/* Nav links */}
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, width: '100%' }}>
               {navLinks.map((link, i) => (
