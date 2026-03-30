@@ -180,7 +180,7 @@ function StackCarousel() {
             alt=""
             fill
             style={{ objectFit: 'cover' }}
-            sizes="25vw"
+            sizes="(max-width: 768px) 40vw, 20vw"
           />
         </div>
 
@@ -203,7 +203,7 @@ function StackCarousel() {
             alt=""
             fill
             style={{ objectFit: 'cover' }}
-            sizes="25vw"
+            sizes="(max-width: 768px) 40vw, 20vw"
           />
         </div>
 
