@@ -65,6 +65,7 @@ export default function BarakaMenu() {
 
     tlRef.current = gsap.timeline()
       .set(nav, { display: 'block' })
+      .set(menuRef.current, { xPercent: 0 })
       .fromTo(btnTextRef.current, { yPercent: 0 }, { yPercent: -100, stagger: 0.15 })
       .fromTo(btnIconRef.current, { rotate: 0 }, { rotate: 45 }, '<')
       .fromTo(overlayRef.current, { autoAlpha: 0 }, { autoAlpha: 1 }, '<')
