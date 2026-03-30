@@ -1,165 +1,154 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const navLinks = [
-  { label: "Histoire", href: "#histoire" },
-  { label: "Créations", href: "#creations" },
-  { label: "Expérience", href: "#experience" },
-  { label: "Adresses", href: "#adresses" },
-  { label: "Actualités", href: "#actualites" },
+const leftLinks = [
+  { href: '/histoire', label: 'Histoire' },
+  { href: '/creations', label: 'Créations' },
+];
+
+const rightLinks = [
+  { href: '/experience', label: "L'Expérience" },
+  { href: '/adresses', label: 'Adresses' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 60);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
+  useEffect(() => {
     setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  }, [pathname]);
+
+  const isHero = pathname === '/';
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+      <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "nav-blur bg-cream/90 border-b border-gold/20 py-4"
-            : "bg-transparent py-6"
+          scrolled || !isHero
+            ? 'nav-blur bg-[#FAF7F2]/90 border-b border-[#C9A96E]/20'
+            : 'bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex flex-col items-start group"
-            aria-label="Baraka Boulangeries — Accueil"
-          >
-            <span className="font-dancing text-gold text-sm tracking-widest group-hover:text-gold-dark transition-colors duration-300">
-              Maison
-            </span>
-            <span
-              className={`font-cormorant font-semibold tracking-widest uppercase transition-all duration-500 ${
-                scrolled ? "text-ink text-2xl" : "text-cream text-3xl"
-              }`}
-            >
-              Baraka
-            </span>
-          </button>
-
-          {/* Desktop nav */}
-          <ul className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <button
-                  onClick={() => handleNavClick(link.href)}
-                  className={`font-dm text-xs tracking-ultra-wide uppercase luxury-link transition-colors duration-300 ${
-                    scrolled
-                      ? "text-ink/70 hover:text-gold"
-                      : "text-cream/80 hover:text-gold"
-                  }`}
-                >
-                  {link.label}
-                </button>
-              </li>
+        <div className="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
+          {/* Left links */}
+          <div className="hidden md:flex items-center gap-10">
+            {leftLinks.map((link) => (
+              <NavLink key={link.href} href={link.href} label={link.label} scrolled={scrolled} isHero={isHero} />
             ))}
-          </ul>
+          </div>
 
-          {/* CTA */}
-          <button
-            onClick={() => handleNavClick("#adresses")}
-            className={`hidden md:block text-xs tracking-widest uppercase font-dm border px-6 py-2.5 transition-all duration-400 hover:bg-gold hover:border-gold hover:text-ink ${
-              scrolled
-                ? "border-gold/60 text-gold"
-                : "border-cream/40 text-cream/80 hover:text-ink"
-            }`}
-          >
-            Nos adresses
-          </button>
+          {/* Logo centered */}
+          <div className="absolute left-1/2 -translate-x-1/2">
+            <Link href="/">
+              <span
+                className={`font-[var(--font-cormorant)] italic text-3xl tracking-[0.1em] transition-colors duration-300 ${
+                  scrolled || !isHero ? 'text-[#1A1410]' : 'text-white'
+                }`}
+              >
+                Baraka
+              </span>
+            </Link>
+          </div>
 
-          {/* Mobile burger */}
+          {/* Right links */}
+          <div className="hidden md:flex items-center gap-10">
+            {rightLinks.map((link) => (
+              <NavLink key={link.href} href={link.href} label={link.label} scrolled={scrolled} isHero={isHero} />
+            ))}
+          </div>
+
+          {/* Burger */}
           <button
+            className="md:hidden ml-auto flex flex-col gap-1.5 p-2"
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2"
             aria-label="Menu"
           >
-            <motion.span
-              animate={menuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              className={`block w-6 h-px transition-colors duration-300 ${
-                scrolled ? "bg-ink" : "bg-cream"
-              }`}
+            <span
+              className={`block w-6 h-px transition-all duration-300 ${
+                scrolled || !isHero ? 'bg-[#1A1410]' : 'bg-white'
+              } ${menuOpen ? 'rotate-45 translate-y-2' : ''}`}
             />
-            <motion.span
-              animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-              className={`block w-4 h-px transition-colors duration-300 ${
-                scrolled ? "bg-ink" : "bg-cream"
-              }`}
+            <span
+              className={`block w-6 h-px transition-all duration-300 ${
+                scrolled || !isHero ? 'bg-[#1A1410]' : 'bg-white'
+              } ${menuOpen ? 'opacity-0' : ''}`}
             />
-            <motion.span
-              animate={menuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              className={`block w-6 h-px transition-colors duration-300 ${
-                scrolled ? "bg-ink" : "bg-cream"
-              }`}
+            <span
+              className={`block w-6 h-px transition-all duration-300 ${
+                scrolled || !isHero ? 'bg-[#1A1410]' : 'bg-white'
+              } ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`}
             />
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile fullscreen menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-ink/95 nav-blur flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 bg-[#1A1410] flex flex-col items-center justify-center"
           >
-            <ul className="flex flex-col items-center gap-8">
-              {navLinks.map((link, i) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.08 }}
+            {[...leftLinks, ...rightLinks].map((link, i) => (
+              <motion.div
+                key={link.href}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ delay: i * 0.08, duration: 0.4 }}
+              >
+                <Link
+                  href={link.href}
+                  className="block py-4 text-center font-[var(--font-cormorant)] text-4xl text-[#FAF7F2] tracking-[0.1em] hover:text-[#C9A96E] transition-colors"
                 >
-                  <button
-                    onClick={() => handleNavClick(link.href)}
-                    className="font-cormorant text-4xl text-cream/90 hover:text-gold transition-colors duration-300"
-                  >
-                    {link.label}
-                  </button>
-                </motion.li>
-              ))}
-            </ul>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="mt-12"
-            >
-              <span className="font-dancing text-gold text-lg">
-                Maison Baraka
-              </span>
-            </motion.div>
+                  {link.label}
+                </Link>
+              </motion.div>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+function NavLink({
+  href,
+  label,
+  scrolled,
+  isHero,
+}: {
+  href: string;
+  label: string;
+  scrolled: boolean;
+  isHero: boolean;
+}) {
+  return (
+    <Link href={href} className="relative group">
+      <span
+        className={`font-[var(--font-dm-sans)] text-xs tracking-[0.15em] uppercase transition-colors duration-300 ${
+          scrolled || !isHero ? 'text-[#1A1410]' : 'text-white/90'
+        } group-hover:text-[#C9A96E]`}
+      >
+        {label}
+      </span>
+      <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#C9A96E] transition-all duration-400 group-hover:w-full" />
+    </Link>
   );
 }

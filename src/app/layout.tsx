@@ -1,10 +1,14 @@
-import type { Metadata } from "next";
+'use client';
+
 import {
   Cormorant_Garamond,
   Playfair_Display,
   DM_Sans,
   Dancing_Script,
 } from "next/font/google";
+import { AnimatePresence, motion } from "framer-motion";
+import { usePathname } from "next/navigation";
+import BarakaMenu from "@/components/ui/BarakaMenu";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -37,38 +41,44 @@ const dancing = Dancing_Script({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Baraka Boulangeries — L'art de la boulangerie française",
-  description:
-    "Baraka, maison de boulangerie française artisanale. Croissants, pains au levain, viennoiseries et pâtisseries d'exception. Découvrez nos adresses à Paris et en France.",
-  keywords: [
-    "boulangerie artisanale",
-    "pain au levain",
-    "croissant",
-    "pâtisserie française",
-    "Paris",
-    "Baraka",
-  ],
-  openGraph: {
-    title: "Baraka Boulangeries — L'art de la boulangerie française",
-    description:
-      "Maison de boulangerie française artisanale. L'excellence au quotidien.",
-    type: "website",
-    locale: "fr_FR",
-  },
-};
+const EASE_LUXURY = [0.22, 1, 0.36, 1] as const;
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+
   return (
     <html
       lang="fr"
       className={`${cormorant.variable} ${playfair.variable} ${dmSans.variable} ${dancing.variable}`}
     >
-      <body className="antialiased">{children}</body>
+      <head>
+        <title>Baraka Boulangeries — L&apos;art de la boulangerie française</title>
+        <meta
+          name="description"
+          content="Baraka, maison de boulangerie française artisanale. Croissants, pains au levain, viennoiseries et pâtisseries d'exception. 5 boutiques en Île-de-France."
+        />
+        <meta property="og:title" content="Baraka Boulangeries" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="fr_FR" />
+      </head>
+      <body>
+        <BarakaMenu />
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={pathname}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: EASE_LUXURY }}
+          >
+            {children}
+          </motion.div>
+        </AnimatePresence>
+      </body>
     </html>
   );
 }
