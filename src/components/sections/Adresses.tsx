@@ -18,64 +18,54 @@ interface Boutique {
 const boutiques: Boutique[] = [
   {
     id: 1,
-    name: "Baraka Marais",
-    address: "34 rue de Bretagne",
-    city: "Paris",
-    arrondissement: "3e",
-    hours: "Lun-Ven 7h-20h, Sam-Dim 7h-21h",
-    phone: "+33 1 42 72 00 00",
-    tag: "Boutique principale",
-    mapUrl: "https://maps.google.com/?q=34+rue+de+Bretagne+Paris",
+    name: "Baraka 2",
+    address: "15 Rue Jean-Jacques Rousseau",
+    city: "Argenteuil",
+    arrondissement: "95100",
+    hours: "Lun-Ven 6h30-20h, Sam-Dim 7h-20h",
+    phone: "",
+    mapUrl: "https://maps.google.com/?q=15+Rue+Jean-Jacques+Rousseau+95100+Argenteuil",
   },
   {
     id: 2,
-    name: "Baraka Saint-Germain",
-    address: "12 rue de Buci",
-    city: "Paris",
-    arrondissement: "6e",
-    hours: "Lun-Ven 7h-20h, Sam-Dim 7h-21h",
-    phone: "+33 1 43 26 00 00",
-    tag: "Nouveau",
-    mapUrl: "https://maps.google.com/?q=12+rue+de+Buci+Paris",
+    name: "Baraka 3",
+    address: "109 Rue de l'Ambassadeur",
+    city: "Conflans-Sainte-Honorine",
+    arrondissement: "78700",
+    hours: "Lun-Ven 6h30-20h, Sam-Dim 7h-20h",
+    phone: "",
+    mapUrl: "https://maps.google.com/?q=109+Rue+de+l+Ambassadeur+78700+Conflans-Sainte-Honorine",
   },
   {
     id: 3,
-    name: "Baraka Montmartre",
-    address: "18 rue Lepic",
-    city: "Paris",
-    arrondissement: "18e",
-    hours: "Mar-Dim 7h30-19h30",
-    phone: "+33 1 46 06 00 00",
-    mapUrl: "https://maps.google.com/?q=18+rue+Lepic+Paris",
+    name: "Boulangerie Baraka",
+    address: "135 Rue de Conflans",
+    city: "Herblay-sur-Seine",
+    arrondissement: "95220",
+    hours: "Lun-Ven 6h30-20h, Sam-Dim 7h-20h",
+    phone: "",
+    tag: "Boutique historique",
+    mapUrl: "https://maps.google.com/?q=135+Rue+de+Conflans+95220+Herblay-sur-Seine",
   },
   {
     id: 4,
-    name: "Baraka Batignolles",
-    address: "56 avenue de Clichy",
-    city: "Paris",
-    arrondissement: "17e",
-    hours: "Lun-Sam 7h-20h, Dim 8h-14h",
-    phone: "+33 1 44 90 00 00",
-    mapUrl: "https://maps.google.com/?q=56+avenue+de+Clichy+Paris",
+    name: "Baraka 5",
+    address: "2 Chemin de la Croix de Bois",
+    city: "Herblay-sur-Seine",
+    arrondissement: "95220",
+    hours: "Lun-Ven 6h30-20h, Sam-Dim 7h-20h",
+    phone: "",
+    mapUrl: "https://maps.google.com/?q=2+Chemin+de+la+Croix+de+Bois+95220+Herblay-sur-Seine",
   },
   {
     id: 5,
-    name: "Baraka Lyon Presqu'ile",
-    address: "24 rue de la République",
-    city: "Lyon",
-    hours: "Lun-Ven 7h-19h30, Sam-Dim 8h-20h",
-    phone: "+33 4 72 41 00 00",
-    mapUrl: "https://maps.google.com/?q=24+rue+de+la+République+Lyon",
-  },
-  {
-    id: 6,
-    name: "Baraka Bordeaux",
-    address: "8 cours de l'Intendance",
-    city: "Bordeaux",
-    hours: "Lun-Dim 7h-20h",
-    phone: "+33 5 56 44 00 00",
-    tag: "Bientôt",
-    mapUrl: "https://maps.google.com/?q=8+cours+de+l+Intendance+Bordeaux",
+    name: "Baraka 6",
+    address: "14 Av. de la Gare",
+    city: "Beauchamp",
+    arrondissement: "95250",
+    hours: "Lun-Ven 6h30-20h, Sam-Dim 7h-20h",
+    phone: "",
+    mapUrl: "https://maps.google.com/?q=14+Avenue+de+la+Gare+95250+Beauchamp",
   },
 ];
 
@@ -182,12 +172,14 @@ function BoutiqueCard({
               </p>
               <p className="font-dm text-sm text-ink/70">{boutique.hours}</p>
             </div>
-            <div>
-              <p className="font-dm text-xs text-ink/40 tracking-widest uppercase mb-2">
-                Téléphone
-              </p>
-              <p className="font-dm text-sm text-ink/70">{boutique.phone}</p>
-            </div>
+            {boutique.phone && (
+              <div>
+                <p className="font-dm text-xs text-ink/40 tracking-widest uppercase mb-2">
+                  Téléphone
+                </p>
+                <p className="font-dm text-sm text-ink/70">{boutique.phone}</p>
+              </div>
+            )}
             <div className="sm:col-span-2">
               <a
                 href={boutique.mapUrl}
@@ -262,9 +254,9 @@ export default function Adresses() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="font-dm text-sm text-ink/60 leading-relaxed max-w-sm mb-12"
             >
-              Nos boutiques sont ouvertes 7 jours sur 7, dès l&apos;aube.
-              Chaque adresse est unique, conçue pour s&apos;intégrer dans son
-              quartier tout en portant l&apos;identité Baraka.
+              Cinq adresses en Île-de-France, ouvertes 7 jours sur 7
+              dès l&apos;aube. Chaque boutique porte l&apos;identité Baraka
+              tout en s&apos;ancrant dans son quartier.
             </motion.p>
 
             {/* Decorative element */}
@@ -278,13 +270,13 @@ export default function Adresses() {
                 <div className="absolute inset-0 bg-cream-warm border border-gold/15" />
                 <div className="absolute inset-6 flex flex-col justify-end p-4">
                   <span className="font-cormorant text-6xl font-light text-gold/20 leading-none">
-                    14
+                    5
                   </span>
                   <p className="font-cormorant text-lg text-ink/70 mt-1">
-                    adresses en France
+                    adresses en Île-de-France
                   </p>
                   <p className="font-dm text-xs text-ink/40 tracking-widest uppercase mt-1">
-                    Paris, Lyon, Bordeaux et bientôt plus
+                    Argenteuil, Conflans, Herblay, Beauchamp
                   </p>
                 </div>
               </div>
