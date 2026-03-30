@@ -25,7 +25,7 @@ export default function BarakaMenu() {
   const overlayRef = useRef<HTMLDivElement>(null);
   const menuRef    = useRef<HTMLDivElement>(null);
   const panelsRef  = useRef<HTMLDivElement[]>([]);
-  const linksRef   = useRef<HTMLAnchorElement[]>([]);
+
   const fadeRef    = useRef<HTMLElement[]>([]);
   const btnTextRef = useRef<HTMLParagraphElement[]>([]);
   const btnIconRef = useRef<HTMLDivElement>(null);
@@ -69,7 +69,7 @@ export default function BarakaMenu() {
       .fromTo(btnIconRef.current, { rotate: 0 }, { rotate: 45 }, '<')
       .fromTo(overlayRef.current, { autoAlpha: 0 }, { autoAlpha: 1 }, '<')
       .fromTo(panelsRef.current, { xPercent: 101 }, { xPercent: 0, stagger: 0.1, duration: 0.55 }, '<')
-      .fromTo(linksRef.current, { yPercent: 140, rotate: 10 }, { yPercent: 0, rotate: 0, stagger: 0.04 }, '<+=0.3')
+      
       .fromTo(fadeRef.current.filter(Boolean), { autoAlpha: 0, yPercent: 40 }, { autoAlpha: 1, yPercent: 0, stagger: 0.04 }, '<+=0.15');
   }, []);
 
@@ -189,10 +189,10 @@ export default function BarakaMenu() {
             {/* Nav links */}
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, width: '100%' }}>
               {navLinks.map((link, i) => (
-                <li key={link.href} style={{ overflow: 'hidden', borderBottom: '1px solid rgba(26,20,16,0.08)' }}>
+                <li key={link.href} style={{ borderBottom: '1px solid rgba(26,20,16,0.08)', overflow: 'hidden' }}>
                   <Link
                     href={link.href}
-                    ref={el => { if (el) linksRef.current[i] = el as HTMLAnchorElement; }}
+
                     onClick={closeNav}
                     style={{ display: 'flex', alignItems: 'baseline', gap: '0.6rem', padding: '0.55rem 0', textDecoration: 'none', position: 'relative' }}
                     onMouseEnter={e => {
