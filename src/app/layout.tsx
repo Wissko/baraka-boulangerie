@@ -5,6 +5,7 @@ import {
   Playfair_Display,
   DM_Sans,
   Dancing_Script,
+  Work_Sans,
 } from "next/font/google";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
@@ -41,6 +42,13 @@ const dancing = Dancing_Script({
   display: "swap",
 });
 
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400"],
+  variable: "--font-work-sans",
+  display: "swap",
+});
+
 const EASE_LUXURY = [0.22, 1, 0.36, 1] as const;
 
 export default function RootLayout({
@@ -53,7 +61,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${cormorant.variable} ${playfair.variable} ${dmSans.variable} ${dancing.variable}`}
+      className={`${cormorant.variable} ${playfair.variable} ${dmSans.variable} ${dancing.variable} ${workSans.variable}`}
     >
       <head>
         <title>Baraka Boulangeries — L&apos;art de la boulangerie française</title>

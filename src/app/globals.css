@@ -16,6 +16,12 @@
   --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+@keyframes kenburns {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.06); }
+}
+.kb-active { animation: kenburns 6s ease-in-out forwards; }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }

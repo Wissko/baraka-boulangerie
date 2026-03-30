@@ -5,219 +5,421 @@ import Link from 'next/link';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const EASE = [0.22, 1, 0.36, 1] as const;
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 /* ── Carousel slides ─────────────────────────────────────────────────────── */
 const slides = [
-  { src: '/images/fraisier.jpg',      name: 'Fraisier',            category: 'Pâtisserie' },
-  { src: '/images/patisseries.jpg',   name: 'Vitrine du Jour',     category: 'Sélection' },
-  { src: '/images/mangues.jpg',       name: 'Entremets Mangue',    category: 'Création Signature' },
-  { src: '/images/vitrine-noel.jpg',  name: 'Collection de Fêtes', category: 'Édition Limitée' },
-  { src: '/images/baguettes.jpg',     name: 'Boulangerie',         category: 'Artisanat' },
+  { src: '/images/fraisier.jpg',     name: 'Fraisier',            category: 'Patisserie',       num: '01' },
+  { src: '/images/patisseries.jpg',  name: 'Vitrine du Jour',     category: 'Selection',        num: '02' },
+  { src: '/images/mangues.jpg',      name: 'Entremets Mangue',    category: 'Signature',        num: '03' },
+  { src: '/images/vitrine-noel.jpg', name: 'Collection Fetes',    category: 'Edition Limitee',  num: '04' },
+  { src: '/images/baguettes.jpg',    name: 'Boulangerie',         category: 'Artisanat',        num: '05' },
 ];
 
 /* ── Triptych items ──────────────────────────────────────────────────────── */
 const triptych = [
-  { src: '/images/patisseries.jpg', label: 'Pâtisseries' },
+  { src: '/images/patisseries.jpg', label: 'Patisseries' },
   { src: '/images/fraisier.jpg',    label: 'Fraisier' },
   { src: '/images/mangues.jpg',     label: 'Entremets' },
 ];
 
-/* ── Arrow SVG ───────────────────────────────────────────────────────────── */
-function ArrowLeft() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M13 4L7 10L13 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
-function ArrowRight() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M7 4L13 10L7 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-}
+/* ── Slide variants ──────────────────────────────────────────────────────── */
+const variants = {
+  enter: (dir: number) => ({
+    x: dir > 0 ? '110%' : '-110%',
+    rotateY: dir > 0 ? 15 : -15,
+    scale: 0.85,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    rotateY: 0,
+    scale: 1,
+    opacity: 1,
+  },
+  exit: (dir: number) => ({
+    x: dir > 0 ? '-110%' : '110%',
+    rotateY: dir > 0 ? -15 : 15,
+    scale: 0.85,
+    opacity: 0,
+  }),
+};
 
-/* ── Carousel ────────────────────────────────────────────────────────────── */
-function EditorialCarousel() {
-  const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const go = useCallback((idx: number) => {
-    setCurrent((idx + slides.length) % slides.length);
-  }, []);
+/* ── ProgressBar ─────────────────────────────────────────────────────────── */
+function ProgressBar({ running, onComplete }: { running: boolean; onComplete: () => void }) {
+  const [width, setWidth] = useState(0);
+  const rafRef = useRef<number | null>(null);
+  const startRef = useRef<number | null>(null);
+  const DURATION = 5000;
 
   useEffect(() => {
-    if (paused) return;
-    timerRef.current = setTimeout(() => go(current + 1), 4000);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [current, paused, go]);
+    setWidth(0);
+    if (!running) return;
+    startRef.current = null;
+
+    const tick = (ts: number) => {
+      if (startRef.current === null) startRef.current = ts;
+      const elapsed = ts - startRef.current;
+      const pct = Math.min((elapsed / DURATION) * 100, 100);
+      setWidth(pct);
+      if (pct < 100) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        onComplete();
+      }
+    };
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [running]);
+
+  return (
+    <div
+      style={{
+        width: '180px',
+        height: '2px',
+        background: 'rgba(250,247,242,0.12)',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          height: '100%',
+          width: `${width}%`,
+          background: '#E81C1C',
+          transition: 'none',
+        }}
+      />
+    </div>
+  );
+}
+
+/* ── StackCarousel ───────────────────────────────────────────────────────── */
+function StackCarousel() {
+  const [current, setCurrent] = useState(0);
+  const [dir, setDir] = useState(1);
+  const [paused, setPaused] = useState(false);
+  const [progressKey, setProgressKey] = useState(0);
+
+  const go = useCallback((delta: number) => {
+    setDir(delta);
+    setCurrent((c) => (c + delta + slides.length) % slides.length);
+    setProgressKey((k) => k + 1);
+  }, []);
+
+  const handleProgressComplete = useCallback(() => {
+    if (!paused) go(1);
+  }, [paused, go]);
+
+  const prev = (current - 1 + slides.length) % slides.length;
+  const next = (current + 1) % slides.length;
+
+  const cardWidth = 'min(480px, 70vw)';
 
   return (
     <section
-      style={{ background: '#1A1410', padding: '80px 0', position: 'relative' }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      style={{
+        background: '#1A1410',
+        padding: 'clamp(5rem,10vw,8rem) 0',
+        overflow: 'hidden',
+      }}
     >
-      {/* Slide container */}
+      {/* Overline */}
+      <p
+        style={{
+          textAlign: 'center',
+          fontFamily: 'var(--font-dm-sans)',
+          fontWeight: 300,
+          fontSize: '0.6rem',
+          letterSpacing: '0.38em',
+          textTransform: 'uppercase',
+          color: '#E81C1C',
+          marginBottom: '3rem',
+          opacity: 0.9,
+        }}
+      >
+        Nos Creations
+      </p>
+
+      {/* Stack carousel container */}
       <div
         style={{
           position: 'relative',
-          width: '85vw',
-          maxWidth: '1400px',
-          margin: '0 auto',
-          height: 'clamp(320px, 45vw, 500px)',
-          overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 'clamp(400px, 70vh, 600px)',
+          perspective: '1200px',
         }}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
       >
-        <AnimatePresence mode="sync">
-          <motion.div
-            key={current}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.9, ease: 'easeInOut' }}
-            style={{ position: 'absolute', inset: 0 }}
-          >
-            {/* Image */}
-            <Image
-              src={slides[current].src}
-              alt={slides[current].name}
-              fill
-              priority
-              style={{ objectFit: 'cover', borderRadius: 0 }}
-              sizes="85vw"
-            />
+        {/* Ghost prev card */}
+        <div
+          style={{
+            position: 'absolute',
+            width: cardWidth,
+            aspectRatio: '3/4',
+            transform: 'translateX(-15%) scale(0.88)',
+            opacity: 0.4,
+            pointerEvents: 'none',
+            border: '1px solid rgba(250,247,242,0.08)',
+            overflow: 'hidden',
+            zIndex: 1,
+          }}
+        >
+          <Image
+            src={slides[prev].src}
+            alt=""
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="25vw"
+          />
+        </div>
 
-            {/* Bottom gradient overlay */}
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background: 'linear-gradient(to top, rgba(26,20,16,0.82) 0%, rgba(26,20,16,0.18) 50%, transparent 100%)',
-              }}
-            />
+        {/* Ghost next card */}
+        <div
+          style={{
+            position: 'absolute',
+            width: cardWidth,
+            aspectRatio: '3/4',
+            transform: 'translateX(15%) scale(0.88)',
+            opacity: 0.4,
+            pointerEvents: 'none',
+            border: '1px solid rgba(250,247,242,0.08)',
+            overflow: 'hidden',
+            zIndex: 1,
+          }}
+        >
+          <Image
+            src={slides[next].src}
+            alt=""
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="25vw"
+          />
+        </div>
 
-            {/* Text bottom-left */}
-            <div
+        {/* Active card */}
+        <div style={{ position: 'relative', zIndex: 2, width: cardWidth }}>
+          <AnimatePresence mode="popLayout" custom={dir}>
+            <motion.div
+              key={current}
+              custom={dir}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.65, ease: EASE }}
               style={{
-                position: 'absolute',
-                bottom: '2.5rem',
-                left: '2.5rem',
-                right: '2.5rem',
+                width: '100%',
+                aspectRatio: '3/4',
+                position: 'relative',
+                overflow: 'hidden',
+                border: '1px solid rgba(250,247,242,0.08)',
+                boxShadow: '0 32px 80px rgba(0,0,0,0.55)',
               }}
             >
-              <p
+              {/* Ken Burns image */}
+              <Image
+                src={slides[current].src}
+                alt={slides[current].name}
+                fill
+                priority
+                className="kb-active"
+                style={{ objectFit: 'cover' }}
+                sizes="min(480px, 70vw)"
+              />
+
+              {/* Gradient overlay */}
+              <div
                 style={{
-                  fontFamily: 'var(--font-dm-sans)',
-                  fontWeight: 300,
-                  fontSize: '0.6rem',
-                  letterSpacing: '0.35em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-rouge)',
-                  marginBottom: '0.5rem',
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(to top, rgba(26,20,16,0.75) 0%, rgba(26,20,16,0.15) 55%, transparent 100%)',
+                  zIndex: 1,
+                }}
+              />
+
+              {/* Text overlay bottom-left */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '2rem',
+                  left: '1.75rem',
+                  zIndex: 2,
                 }}
               >
-                {slides[current].category}
-              </p>
-              <h2
-                style={{
-                  fontFamily: 'var(--font-cormorant)',
-                  fontStyle: 'italic',
-                  fontSize: 'clamp(2.5rem, 5vw, 5rem)',
-                  color: '#FAF7F2',
-                  fontWeight: 400,
-                  lineHeight: 1,
-                  letterSpacing: '0.03em',
-                  margin: 0,
-                }}
-              >
-                {slides[current].name}
-              </h2>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+                {/* Number */}
+                <p
+                  style={{
+                    fontFamily: 'var(--font-work-sans)',
+                    fontWeight: 300,
+                    fontSize: '0.65rem',
+                    letterSpacing: '0.28em',
+                    color: '#E81C1C',
+                    opacity: 0.8,
+                    marginBottom: '0.3rem',
+                  }}
+                >
+                  {slides[current].num}
+                </p>
 
-        {/* Arrow left */}
-        <button
-          onClick={() => go(current - 1)}
-          aria-label="Slide précédent"
-          style={{
-            position: 'absolute',
-            left: '1.25rem',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            background: 'rgba(26,20,16,0.55)',
-            border: '1px solid rgba(255,255,255,0.18)',
-            color: '#FAF7F2',
-            width: '42px',
-            height: '42px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            zIndex: 10,
-            transition: 'background 0.3s',
-          }}
-        >
-          <ArrowLeft />
-        </button>
+                {/* Category */}
+                <p
+                  style={{
+                    fontFamily: 'var(--font-dm-sans)',
+                    fontWeight: 400,
+                    fontSize: '0.55rem',
+                    letterSpacing: '0.3em',
+                    textTransform: 'uppercase',
+                    color: 'rgba(250,247,242,0.45)',
+                    marginBottom: '0.5rem',
+                  }}
+                >
+                  {slides[current].category}
+                </p>
 
-        {/* Arrow right */}
-        <button
-          onClick={() => go(current + 1)}
-          aria-label="Slide suivant"
-          style={{
-            position: 'absolute',
-            right: '1.25rem',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            background: 'rgba(26,20,16,0.55)',
-            border: '1px solid rgba(255,255,255,0.18)',
-            color: '#FAF7F2',
-            width: '42px',
-            height: '42px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            zIndex: 10,
-            transition: 'background 0.3s',
-          }}
-        >
-          <ArrowRight />
-        </button>
+                {/* Name with clip reveal */}
+                <div style={{ overflow: 'hidden' }}>
+                  <motion.h2
+                    key={`name-${current}`}
+                    initial={{ clipPath: 'inset(0 0 100% 0)' }}
+                    animate={{ clipPath: 'inset(0 0 0% 0)' }}
+                    transition={{ duration: 0.55, ease: EASE, delay: 0.1 }}
+                    style={{
+                      fontFamily: 'var(--font-cormorant)',
+                      fontStyle: 'italic',
+                      fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                      color: '#FAF7F2',
+                      fontWeight: 400,
+                      lineHeight: 1,
+                      letterSpacing: '0.03em',
+                      margin: 0,
+                    }}
+                  >
+                    {slides[current].name}
+                  </motion.h2>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
-      {/* Dots */}
+      {/* Navigation */}
       <div
         style={{
           display: 'flex',
+          alignItems: 'center',
           justifyContent: 'center',
-          gap: '0.6rem',
-          marginTop: '1.75rem',
+          gap: '3rem',
+          marginTop: '2.5rem',
         }}
       >
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => go(i)}
-            aria-label={`Aller au slide ${i + 1}`}
+        {/* Prev */}
+        <button
+          onClick={() => go(-1)}
+          aria-label="Precedent"
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            color: 'rgba(250,247,242,0.55)',
+            padding: 0,
+            transition: 'color 0.25s',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = '#FAF7F2')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(250,247,242,0.55)')}
+        >
+          <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true">
+            <path d="M6 1L1 5L6 9" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+            <line x1="1" y1="5" x2="17" y2="5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+          </svg>
+          <span
             style={{
-              width: '6px',
-              height: '6px',
-              borderRadius: '50%',
-              background: '#FAF7F2',
-              opacity: i === current ? 1 : 0.3,
-              border: 'none',
-              padding: 0,
-              cursor: 'pointer',
-              transition: 'opacity 0.35s',
+              fontFamily: 'var(--font-dm-sans)',
+              fontWeight: 300,
+              fontSize: '0.75rem',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
             }}
+          >
+            Precedent
+          </span>
+        </button>
+
+        {/* Progress + counter */}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '0.75rem',
+          }}
+        >
+          <ProgressBar
+            key={progressKey}
+            running={!paused}
+            onComplete={handleProgressComplete}
           />
-        ))}
+          <span
+            style={{
+              fontFamily: 'var(--font-work-sans)',
+              fontWeight: 300,
+              fontSize: '0.65rem',
+              letterSpacing: '0.22em',
+              color: 'rgba(250,247,242,0.35)',
+            }}
+          >
+            {slides[current].num} / {String(slides.length).padStart(2, '0')}
+          </span>
+        </div>
+
+        {/* Next */}
+        <button
+          onClick={() => go(1)}
+          aria-label="Suivant"
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            color: 'rgba(250,247,242,0.55)',
+            padding: 0,
+            transition: 'color 0.25s',
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = '#FAF7F2')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(250,247,242,0.55)')}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--font-dm-sans)',
+              fontWeight: 300,
+              fontSize: '0.75rem',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Suivant
+          </span>
+          <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true">
+            <path d="M12 1L17 5L12 9" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+            <line x1="17" y1="5" x2="1" y2="5" stroke="currentColor" strokeWidth="1" strokeLinecap="round"/>
+          </svg>
+        </button>
       </div>
     </section>
   );
@@ -362,8 +564,8 @@ export default function CreationsPage() {
         </motion.p>
       </section>
 
-      {/* ── Section 2 : Carousel ─────────────────────────────────────────── */}
-      <EditorialCarousel />
+      {/* ── Section 2 : Stack Carousel ───────────────────────────────────── */}
+      <StackCarousel />
 
       {/* ── Section 3 : Statement éditorial ─────────────────────────────── */}
       <section
@@ -479,7 +681,7 @@ export default function CreationsPage() {
             transition: 'opacity 0.3s',
           }}
         >
-          Voir nos adresses →
+          Voir nos adresses
         </Link>
       </section>
 
