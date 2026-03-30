@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import WebGLGallery from '@/components/ui/WebGLGallery';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -156,9 +155,11 @@ export default function CreationsPage() {
         </motion.p>
       </section>
 
-      {/* ── Section 2 : WebGL Rotating Gallery ──────────────────────────── */}
-      <section style={{ background: '#1A1410', padding: 'clamp(3rem,6vw,5rem) 0 0' }}>
-        <div style={{ textAlign: 'center', padding: '0 2rem clamp(2rem,4vw,3rem)' }}>
+      {/* ── Section 2 : Cinematic Strip Carousel ──────────────────────── */}
+      <section style={{ background: '#1A1410', padding: 'clamp(4rem,8vw,7rem) 0', overflow: 'hidden' }}>
+
+        {/* Overline + titre */}
+        <div style={{ textAlign: 'center', padding: '0 2rem clamp(2.5rem,5vw,4rem)' }}>
           <p style={{
             fontFamily: 'var(--font-dm-sans)',
             fontWeight: 400,
@@ -176,28 +177,110 @@ export default function CreationsPage() {
             color: '#FAF7F2',
           }}>Nos Créations</h2>
         </div>
-        <WebGLGallery
-          images={[
-            '/images/fraisier.jpg',
-            '/images/patisseries.jpg',
-            '/images/mangues.jpg',
-            '/images/vitrine-noel.jpg',
-            '/images/baguettes.jpg',
-            '/images/vitrine.jpg',
-          ]}
-          height="70vh"
-        />
-        <p style={{
-          textAlign: 'center',
-          fontFamily: 'var(--font-dm-sans)',
-          fontWeight: 300,
-          fontSize: '0.65rem',
-          letterSpacing: '0.18em',
-          color: 'rgba(250,247,242,0.3)',
-          padding: '1.5rem 0 3rem',
-        }}>
-          Scroll ou glisser pour explorer
-        </p>
+
+        {/* Strip */}
+        <div style={{ overflow: 'hidden', position: 'relative' }}>
+
+          {/* Fade edges */}
+          <div aria-hidden style={{
+            position: 'absolute', left: 0, top: 0, bottom: 0, width: '160px', zIndex: 2, pointerEvents: 'none',
+            background: 'linear-gradient(to right, #1A1410, transparent)',
+          }} />
+          <div aria-hidden style={{
+            position: 'absolute', right: 0, top: 0, bottom: 0, width: '160px', zIndex: 2, pointerEvents: 'none',
+            background: 'linear-gradient(to left, #1A1410, transparent)',
+          }} />
+
+          {/* Track — duplicated 3x for seamless loop */}
+          <div className="baraka-strip" style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'clamp(1.5rem, 3vw, 2.5rem)',
+            width: 'max-content',
+            animation: 'baraka-scroll 28s linear infinite',
+            paddingLeft: 'clamp(1.5rem, 3vw, 2.5rem)',
+          }}>
+            {[
+              { src: '/images/fraisier.jpg',     name: 'Fraisier',          cat: 'Pâtisserie' },
+              { src: '/images/patisseries.jpg',  name: 'Vitrine du Jour',   cat: 'Sélection' },
+              { src: '/images/mangues.jpg',      name: 'Entremets Mangue',  cat: 'Signature' },
+              { src: '/images/vitrine-noel.jpg', name: 'Collection Fêtes',  cat: 'Édition Limitée' },
+              { src: '/images/baguettes.jpg',    name: 'Boulangerie',       cat: 'Artisanat' },
+              { src: '/images/vitrine.jpg',      name: 'Notre Vitrine',     cat: 'Quotidien' },
+              // Duplicate
+              { src: '/images/fraisier.jpg',     name: 'Fraisier',          cat: 'Pâtisserie' },
+              { src: '/images/patisseries.jpg',  name: 'Vitrine du Jour',   cat: 'Sélection' },
+              { src: '/images/mangues.jpg',      name: 'Entremets Mangue',  cat: 'Signature' },
+              { src: '/images/vitrine-noel.jpg', name: 'Collection Fêtes',  cat: 'Édition Limitée' },
+              { src: '/images/baguettes.jpg',    name: 'Boulangerie',       cat: 'Artisanat' },
+              { src: '/images/vitrine.jpg',      name: 'Notre Vitrine',     cat: 'Quotidien' },
+            ].map((item, i) => (
+              <div key={i} style={{
+                flexShrink: 0,
+                width: 'clamp(260px, 26vw, 380px)',
+              }}>
+                {/* Image */}
+                <div style={{
+                  position: 'relative',
+                  aspectRatio: '3/4',
+                  overflow: 'hidden',
+                }}>
+                  <img
+                    src={item.src}
+                    alt={item.name}
+                    loading={i < 6 ? 'eager' : 'lazy'}
+                    style={{
+                      width: '100%', height: '100%',
+                      objectFit: 'cover',
+                      display: 'block',
+                      transition: 'transform 0.8s ease',
+                    }}
+                    onMouseEnter={e => ((e.target as HTMLImageElement).style.transform = 'scale(1.04)')}
+                    onMouseLeave={e => ((e.target as HTMLImageElement).style.transform = 'scale(1)')}
+                  />
+                  {/* Gradient overlay */}
+                  <div style={{
+                    position: 'absolute', inset: 0,
+                    background: 'linear-gradient(to top, rgba(26,20,16,0.7) 0%, transparent 50%)',
+                    pointerEvents: 'none',
+                  }} />
+                  {/* Name overlay */}
+                  <div style={{
+                    position: 'absolute', bottom: '1.25rem', left: '1.25rem',
+                  }}>
+                    <p style={{
+                      fontFamily: 'var(--font-dm-sans)',
+                      fontWeight: 400,
+                      fontSize: '0.55rem',
+                      letterSpacing: '0.28em',
+                      textTransform: 'uppercase',
+                      color: '#E81C1C',
+                      marginBottom: '0.3rem',
+                    }}>{item.cat}</p>
+                    <p style={{
+                      fontFamily: 'var(--font-cormorant)',
+                      fontStyle: 'italic',
+                      fontWeight: 300,
+                      fontSize: 'clamp(1.2rem, 2.5vw, 1.6rem)',
+                      color: '#FAF7F2',
+                      lineHeight: 1.1,
+                    }}>{item.name}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <style>{`
+            @keyframes baraka-scroll {
+              0%   { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+            .baraka-strip:hover {
+              animation-play-state: paused;
+            }
+          `}</style>
+        </div>
       </section>
 
       {/* ── Section 3 : Statement éditorial ─────────────────────────────── */}
