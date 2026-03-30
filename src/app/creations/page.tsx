@@ -9,18 +9,18 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 const categories = ['Tout', 'Pains', 'Viennoiseries', 'Pâtisseries', 'Sandwichs'];
 
 const products = [
-  { id: 1, name: 'Croissant', category: 'Viennoiseries', price: '1,60 €', src: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&q=80', size: 'large' },
-  { id: 2, name: 'Pain au Chocolat', category: 'Viennoiseries', price: '1,80 €', src: 'https://images.unsplash.com/photo-1623334044303-241021148842?w=800&q=80', size: 'small' },
-  { id: 3, name: 'Baguette Tradition', category: 'Pains', price: '1,20 €', src: 'https://images.unsplash.com/photo-1549931319-a545dcf3bc7c?w=800&q=80', size: 'small' },
-  { id: 4, name: 'Éclair au Café', category: 'Pâtisseries', price: '3,50 €', src: 'https://images.unsplash.com/photo-1587668178277-295251f900ce?w=800&q=80', size: 'small' },
-  { id: 5, name: 'Tarte aux Fruits', category: 'Pâtisseries', price: '4,20 €', src: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&q=80', size: 'large' },
-  { id: 6, name: 'Mille-feuille', category: 'Pâtisseries', price: '4,50 €', src: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=800&q=80', size: 'small' },
-  { id: 7, name: 'Pain de Campagne', category: 'Pains', price: '2,80 €', src: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80', size: 'small' },
+  { id: 1, name: 'Fraisier', category: 'Pâtisseries', price: '5,50 €', src: '/images/fraisier.jpg', size: 'large' },
+  { id: 2, name: 'Macarons & Tartelettes', category: 'Pâtisseries', price: '—', src: '/images/patisseries.jpg', size: 'small' },
+  { id: 3, name: 'Baguettes Tradition', category: 'Pains', price: '1,20 €', src: '/images/baguettes.jpg', size: 'small' },
+  { id: 4, name: 'Entremets Mangue', category: 'Pâtisseries', price: '6,80 €', src: '/images/mangues.jpg', size: 'large' },
+  { id: 5, name: 'Bûches & Créations Noël', category: 'Pâtisseries', price: '—', src: '/images/vitrine-noel.jpg', size: 'small' },
+  { id: 6, name: 'Vitrine du jour', category: 'Viennoiseries', price: '—', src: '/images/vitrine.jpg', size: 'small' },
+  { id: 7, name: 'Pain au Chocolat', category: 'Viennoiseries', price: '1,80 €', src: 'https://images.unsplash.com/photo-1623334044303-241021148842?w=800&q=80', size: 'small' },
   { id: 8, name: 'Brioche', category: 'Viennoiseries', price: '2,40 €', src: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=800&q=80', size: 'large' },
-  { id: 9, name: 'Macaron', category: 'Pâtisseries', price: '1,90 €', src: 'https://images.unsplash.com/photo-1558326567-98ae2405596b?w=800&q=80', size: 'small' },
+  { id: 9, name: 'Croissant', category: 'Viennoiseries', price: '1,60 €', src: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&q=80', size: 'small' },
   { id: 10, name: 'Sandwich Club', category: 'Sandwichs', price: '5,50 €', src: 'https://images.unsplash.com/photo-1553909489-cd47e0907980?w=800&q=80', size: 'small' },
-  { id: 11, name: 'Pain au Seigle', category: 'Pains', price: '2,60 €', src: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=800&q=80', size: 'small' },
-  { id: 12, name: 'Financier', category: 'Pâtisseries', price: '2,10 €', src: 'https://images.unsplash.com/photo-1569069640846-f4b0df46b33e?w=800&q=80', size: 'large' },
+  { id: 11, name: 'Pain de Campagne', category: 'Pains', price: '2,80 €', src: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80', size: 'small' },
+  { id: 12, name: 'Pain au Seigle', category: 'Pains', price: '2,60 €', src: 'https://images.unsplash.com/photo-1574085733277-851d9d856a3a?w=800&q=80', size: 'large' },
 ];
 
 function ProductCard({ product, index }: { product: typeof products[0]; index: number }) {
@@ -73,12 +73,12 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
           }}>
             {product.name}
           </p>
-          <div style={{ width: '32px', height: '1px', background: '#C9A96E', margin: '0.5rem auto' }} />
+          <div style={{ width: '32px', height: '1px', background: 'var(--color-rouge)', margin: '0.5rem auto' }} />
           <p style={{
             fontFamily: 'var(--font-dm-sans)',
             fontWeight: 300,
             fontSize: '0.85rem',
-            color: '#C9A96E',
+            color: 'var(--color-rouge)',
             letterSpacing: '0.2em',
           }}>
             {product.price}
@@ -125,7 +125,7 @@ export default function CreationsPage() {
             fontSize: '0.65rem',
             letterSpacing: '0.35em',
             textTransform: 'uppercase',
-            color: '#C9A96E',
+            color: 'var(--color-rouge)',
             marginBottom: '1rem',
           }}
         >
@@ -158,7 +158,7 @@ export default function CreationsPage() {
           style={{
             width: '60px',
             height: '1px',
-            background: 'linear-gradient(90deg, transparent, #C9A96E, transparent)',
+            background: 'linear-gradient(90deg, transparent, var(--color-rouge), transparent)',
             margin: '1.5rem auto 0',
           }}
         />
@@ -177,8 +177,8 @@ export default function CreationsPage() {
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
               padding: '0.6rem 1.4rem',
-              border: `1px solid ${active === cat ? '#C9A96E' : 'rgba(26,20,16,0.15)'}`,
-              background: active === cat ? '#C9A96E' : 'transparent',
+              border: `1px solid ${active === cat ? '#C41E3A' : 'rgba(26,20,16,0.15)'}`,
+              background: active === cat ? '#C41E3A' : 'transparent',
               color: active === cat ? '#FAF7F2' : '#1A1410',
               cursor: 'pointer',
               transition: 'all 0.3s cubic-bezier(0.22,1,0.36,1)',
