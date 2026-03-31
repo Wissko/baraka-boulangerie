@@ -164,7 +164,7 @@ export default function CommandesSpecialesPage() {
               whiteSpace: 'pre-line',
             }}
           >
-            {'Commandes\nSpeciales'}
+            {'Sur\nMesure'}
           </motion.h1>
         </div>
 

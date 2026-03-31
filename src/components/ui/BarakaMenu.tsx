@@ -10,7 +10,7 @@ const navLinks = [
   { href: '/creations',            label: 'Créations',            num: '03' },
   { href: '/experience',           label: "L'Expérience",         num: '04' },
   { href: '/adresses',             label: 'Adresses',             num: '05' },
-  { href: '/commandes-speciales',  label: 'Commandes spéciales',  num: '06' },
+  { href: '/commandes-speciales',  label: 'Sur mesure',  num: '06' },
 ];
 
 const socials = [
