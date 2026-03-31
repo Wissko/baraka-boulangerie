@@ -117,21 +117,26 @@ export default function BarakaMenu() {
 
         {/* Menu button */}
         <button onClick={toggle} style={{
-          background: 'none', border: 'none', cursor: 'pointer',
+          background: 'rgba(250,247,242,0.92)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+          border: '1px solid rgba(26,20,16,0.1)',
+          borderRadius: '999px',
+          cursor: 'pointer',
           display: 'flex', alignItems: 'center', gap: '0.6rem',
-          padding: '0.75rem', margin: '-0.75rem',
+          padding: '0.55rem 1rem',
         }}>
           <div style={{ height: '1.1rem', overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
             {['Menu', 'Fermer'].map((t, i) => (
               <p key={t} ref={el => { if (el) btnTextRef.current[i] = el; }} style={{
                 fontFamily: 'var(--font-dm-sans)', fontWeight: 400,
-                fontSize: '0.85rem', letterSpacing: '0.08em', color: '#1A1410',
+                fontSize: '0.82rem', letterSpacing: '0.1em', color: '#1A1410',
                 lineHeight: 1.3, margin: 0, flexShrink: 0,
               }}>{t}</p>
             ))}
           </div>
           <div ref={btnIconRef} style={{ display: 'flex', alignItems: 'center' }}>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
               <rect x="6.33" width="1.33" height="14" rx="0.5" fill="#1A1410"/>
               <rect y="6.33" width="14" height="1.33" rx="0.5" fill="#1A1410"/>
             </svg>
