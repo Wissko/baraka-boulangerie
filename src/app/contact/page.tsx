@@ -38,7 +38,7 @@ export default function ContactPage() {
             fontSize: '0.65rem',
             letterSpacing: '0.35em',
             textTransform: 'uppercase',
-            color: '#C9A96E',
+            color: '#E81C1C',
             marginBottom: '1rem',
           }}
         >
@@ -71,7 +71,7 @@ export default function ContactPage() {
           style={{
             width: '48px',
             height: '1px',
-            background: '#C9A96E',
+            background: '#E81C1C',
             marginBottom: '3rem',
             transformOrigin: 'left',
           }}
@@ -93,7 +93,7 @@ export default function ContactPage() {
               fontSize: '0.6rem',
               letterSpacing: '0.25em',
               textTransform: 'uppercase',
-              color: focused === 'nom' ? '#C9A96E' : 'rgba(26,20,16,0.45)',
+              color: focused === 'nom' ? '#E81C1C' : 'rgba(26,20,16,0.45)',
               display: 'block',
               marginBottom: '0.3rem',
               transition: 'color 0.3s',
@@ -104,7 +104,7 @@ export default function ContactPage() {
               type="text"
               style={{
                 ...inputStyle,
-                borderBottomColor: focused === 'nom' ? '#C9A96E' : 'rgba(26,20,16,0.2)',
+                borderBottomColor: focused === 'nom' ? '#E81C1C' : 'rgba(26,20,16,0.2)',
               }}
               onFocus={() => setFocused('nom')}
               onBlur={() => setFocused(null)}
@@ -119,7 +119,7 @@ export default function ContactPage() {
               fontSize: '0.6rem',
               letterSpacing: '0.25em',
               textTransform: 'uppercase',
-              color: focused === 'email' ? '#C9A96E' : 'rgba(26,20,16,0.45)',
+              color: focused === 'email' ? '#E81C1C' : 'rgba(26,20,16,0.45)',
               display: 'block',
               marginBottom: '0.3rem',
               transition: 'color 0.3s',
@@ -130,7 +130,7 @@ export default function ContactPage() {
               type="email"
               style={{
                 ...inputStyle,
-                borderBottomColor: focused === 'email' ? '#C9A96E' : 'rgba(26,20,16,0.2)',
+                borderBottomColor: focused === 'email' ? '#E81C1C' : 'rgba(26,20,16,0.2)',
               }}
               onFocus={() => setFocused('email')}
               onBlur={() => setFocused(null)}
@@ -145,7 +145,7 @@ export default function ContactPage() {
               fontSize: '0.6rem',
               letterSpacing: '0.25em',
               textTransform: 'uppercase',
-              color: focused === 'message' ? '#C9A96E' : 'rgba(26,20,16,0.45)',
+              color: focused === 'message' ? '#E81C1C' : 'rgba(26,20,16,0.45)',
               display: 'block',
               marginBottom: '0.3rem',
               transition: 'color 0.3s',
@@ -156,7 +156,7 @@ export default function ContactPage() {
               rows={5}
               style={{
                 ...inputStyle,
-                borderBottom: `1px solid ${focused === 'message' ? '#C9A96E' : 'rgba(26,20,16,0.2)'}`,
+                borderBottom: `1px solid ${focused === 'message' ? '#E81C1C' : 'rgba(26,20,16,0.2)'}`,
                 resize: 'none',
                 lineHeight: 1.8,
               }}
@@ -183,7 +183,7 @@ export default function ContactPage() {
               transition: 'background 0.3s, transform 0.3s cubic-bezier(0.22,1,0.36,1)',
             }}
             onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.background = '#C9A96E';
+              (e.currentTarget as HTMLElement).style.background = '#E81C1C';
               (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
             }}
             onMouseLeave={e => {
@@ -245,7 +245,7 @@ export default function ContactPage() {
                   fontFamily: 'var(--font-cormorant)',
                   fontStyle: 'italic',
                   fontSize: '1.2rem',
-                  color: '#C9A96E',
+                  color: '#E81C1C',
                   letterSpacing: '0.03em',
                 }}>
                   {s.handle}

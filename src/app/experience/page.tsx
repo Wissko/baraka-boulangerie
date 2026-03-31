@@ -100,7 +100,7 @@ function PillarSection({ pillar, index }: { pillar: typeof pillars[0]; index: nu
           fontFamily: 'var(--font-cormorant)',
           fontStyle: 'italic',
           fontSize: '1rem',
-          color: '#C9A96E',
+          color: '#E81C1C',
           letterSpacing: '0.3em',
           marginBottom: '1.5rem',
           opacity: 0.7,
@@ -131,7 +131,7 @@ function PillarSection({ pillar, index }: { pillar: typeof pillars[0]; index: nu
           style={{
             width: '48px',
             height: '1px',
-            background: '#C9A96E',
+            background: '#E81C1C',
             marginBottom: '1.5rem',
             transformOrigin: 'left',
           }}
@@ -142,7 +142,7 @@ function PillarSection({ pillar, index }: { pillar: typeof pillars[0]; index: nu
           fontFamily: 'var(--font-playfair)',
           fontStyle: 'italic',
           fontSize: '1.05rem',
-          color: '#C9A96E',
+          color: '#E81C1C',
           letterSpacing: '0.05em',
           marginBottom: '1.5rem',
         }}>
@@ -195,7 +195,7 @@ export default function ExperiencePage() {
             fontSize: '0.65rem',
             letterSpacing: '0.35em',
             textTransform: 'uppercase',
-            color: '#C9A96E',
+            color: '#E81C1C',
             marginBottom: '2rem',
           }}
         >
@@ -230,7 +230,7 @@ export default function ExperiencePage() {
               fontFamily: 'var(--font-cormorant)',
               fontStyle: 'italic',
               fontSize: 'clamp(2rem, 6vw, 4.5rem)',
-              color: '#C9A96E',
+              color: '#E81C1C',
               letterSpacing: '0.04em',
               lineHeight: 1,
               fontWeight: 300,
@@ -263,7 +263,7 @@ export default function ExperiencePage() {
             color: 'rgba(250,247,242,0.5)',
           }}>Défiler</span>
           <motion.div
-            style={{ width: '1px', height: '40px', background: 'rgba(201,169,110,0.5)' }}
+            style={{ width: '1px', height: '40px', background: 'rgba(232,28,28,0.35)' }}
             animate={{ scaleY: [1, 0.3, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           />

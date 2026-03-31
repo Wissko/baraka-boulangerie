@@ -63,7 +63,7 @@ export default function AdressesPage() {
             fontSize: '0.65rem',
             letterSpacing: '0.35em',
             textTransform: 'uppercase',
-            color: '#C9A96E',
+            color: '#E81C1C',
             marginBottom: '1rem',
           }}
         >
@@ -96,7 +96,7 @@ export default function AdressesPage() {
           style={{
             width: '60px',
             height: '1px',
-            background: 'linear-gradient(90deg, transparent, #C9A96E, transparent)',
+            background: 'linear-gradient(90deg, transparent, #E81C1C, transparent)',
             margin: '1.5rem auto 0',
           }}
         />
@@ -131,7 +131,7 @@ export default function AdressesPage() {
                       cursor: 'pointer',
                     }}
                     onMouseEnter={e => {
-                      (e.currentTarget as HTMLElement).style.borderColor = '#C9A96E';
+                      (e.currentTarget as HTMLElement).style.borderColor = '#E81C1C';
                       (e.currentTarget as HTMLElement).style.transform = 'translateX(6px)';
                     }}
                     onMouseLeave={e => {
@@ -158,7 +158,7 @@ export default function AdressesPage() {
                           fontSize: '0.6rem',
                           letterSpacing: '0.15em',
                           textTransform: 'uppercase',
-                          color: '#C9A96E',
+                          color: '#E81C1C',
                           border: '1px solid rgba(201,169,110,0.4)',
                           padding: '0.25rem 0.6rem',
                         }}>
@@ -183,7 +183,7 @@ export default function AdressesPage() {
                       fontWeight: 300,
                       fontSize: '0.7rem',
                       letterSpacing: '0.15em',
-                      color: '#C9A96E',
+                      color: '#E81C1C',
                       marginTop: '1rem',
                       textTransform: 'uppercase',
                     }}>

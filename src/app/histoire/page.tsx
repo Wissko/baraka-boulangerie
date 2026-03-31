@@ -74,10 +74,10 @@ export default function HistoirePage() {
               style={{ letterSpacing: '0.05em', lineHeight: 1.1 }}
             >
               Notre{' '}
-              <span className="text-[#C9A96E]">Histoire</span>
+              <span className="text-[#E81C1C]">Histoire</span>
             </h1>
 
-            <div className="w-16 h-px bg-gradient-to-r from-[#C9A96E] to-transparent mb-8" />
+            <div className="w-16 h-px bg-gradient-to-r from-[#E81C1C] to-transparent mb-8" />
 
             <div
               className="text-[#1A1410]/80 leading-relaxed first-letter-drop"
@@ -112,8 +112,8 @@ export default function HistoirePage() {
           >
             « Le pain est le premier aliment. Il nourrit le corps, rassemble les familles, et rappelle à chacun d&apos;où il vient. »
           </p>
-          <div className="w-16 h-px bg-[#C9A96E] mx-auto mt-8" />
-          <p className="mt-4 font-[var(--font-dm-sans)] text-[#C9A96E] text-sm tracking-[0.2em] uppercase">
+          <div className="w-16 h-px bg-[#E81C1C] mx-auto mt-8" />
+          <p className="mt-4 font-[var(--font-dm-sans)] text-[#E81C1C] text-sm tracking-[0.2em] uppercase">
             — Fondateur, Baraka Boulangeries
           </p>
         </motion.blockquote>
@@ -132,7 +132,7 @@ export default function HistoirePage() {
               className="flex flex-col items-center"
             >
               <div
-                className="font-[var(--font-cormorant)] text-6xl md:text-7xl text-[#C9A96E] mb-3"
+                className="font-[var(--font-cormorant)] text-6xl md:text-7xl text-[#E81C1C] mb-3"
                 style={{ letterSpacing: '0.02em' }}
               >
                 {stat.isText ? (
