@@ -1,5 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import crypto from 'crypto';
+
+function buildAcceptToken(payload: {
+  email: string;
+  prenom: string;
+  type: string;
+  date: string;
+}): string {
+  const secret = process.env.ACCEPT_SECRET ?? 'dev-secret';
+  const data = {
+    ...payload,
+    exp: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 jours
+  };
+  const encoded = Buffer.from(JSON.stringify(data))
+    .toString('base64')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+  const hmac = crypto
+    .createHmac('sha256', secret)
+    .update(encoded)
+    .digest('hex');
+  return `${encoded}.${hmac}`;
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -45,6 +69,11 @@ export async function POST(req: NextRequest) {
       year: 'numeric',
     });
 
+    // Génération du token d'acceptation
+    const token = buildAcceptToken({ email, prenom, type, date });
+    const siteUrl = (process.env.SITE_URL ?? '').replace(/\/$/, '');
+    const acceptUrl = `${siteUrl}/api/accepter-commande?token=${token}`;
+
     // Email à la boulangerie
     await transporter.sendMail({
       from: `"Baraka Site" <${process.env.SMTP_USER}>`,
@@ -67,7 +96,13 @@ Allergies / contraintes :
 ${allergies || 'Aucune'}
 
 ---
-Repondre directement a cet email pour contacter le client.`,
+Repondre directement a cet email pour contacter le client.
+
+---
+✅ ACCEPTER CETTE COMMANDE :
+${acceptUrl}
+
+Ce lien est valable 7 jours.`,
     });
 
     // Email de confirmation au client
