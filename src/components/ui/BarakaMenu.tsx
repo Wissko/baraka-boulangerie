@@ -106,14 +106,17 @@ export default function BarakaMenu() {
         padding: '1.25rem 2rem',
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       }}>
-        {/* Logo BH */}
-        <Link href="/" style={{
-          fontFamily: 'var(--font-cormorant)', fontStyle: 'italic', fontWeight: 600,
-          fontSize: '1.5rem', letterSpacing: '-0.01em', textDecoration: 'none',
-          display: 'flex', alignItems: 'baseline',
-        }}>
-          <span style={{ color: '#1A1410' }}>B</span>
-          <span style={{ color: '#E81C1C' }}>H</span>
+        {/* Logo SVG */}
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <img
+            src="/images/Design sans titre.svg"
+            alt="Baraka"
+            style={{ width: 44, height: 44, objectFit: 'contain', filter: 'brightness(0.15) sepia(1) saturate(3) hue-rotate(5deg)' }}
+          />
+          <span style={{
+            fontFamily: 'var(--font-cormorant)', fontStyle: 'italic', fontWeight: 600,
+            fontSize: '1.5rem', letterSpacing: '0.08em', color: '#1A1410',
+          }}>Baraka</span>
         </Link>
 
         {/* Menu button */}
@@ -178,19 +181,20 @@ export default function BarakaMenu() {
             padding: 'clamp(5rem,12vw,7rem) 2.5rem 2.5rem',
             overflowY: 'auto',
           }}>
-            {/* Logo BH dans le panel */}
+            {/* Logo SVG dans le panel */}
             <div style={{
               position: 'absolute', top: '1.5rem', left: '2.5rem',
-              fontFamily: 'var(--font-cormorant)', fontStyle: 'italic', fontWeight: 600,
-              fontSize: '1.5rem', display: 'flex', alignItems: 'baseline',
+              display: 'flex', alignItems: 'center', gap: '0.65rem',
             }}>
-              <span style={{ color: '#1A1410' }}>B</span>
-              <span style={{ color: '#E81C1C' }}>H</span>
+              <img
+                src="/images/Design sans titre.svg"
+                alt="Baraka"
+                style={{ width: 40, height: 40, objectFit: 'contain', filter: 'brightness(0.15) sepia(1) saturate(3) hue-rotate(5deg)' }}
+              />
               <span style={{
-                fontFamily: 'var(--font-dm-sans)', fontStyle: 'normal', fontWeight: 300,
-                fontSize: '0.55rem', letterSpacing: '0.22em', textTransform: 'uppercase',
-                color: 'rgba(26,20,16,0.35)', marginLeft: '0.6rem',
-              }}>Boulangerie</span>
+                fontFamily: 'var(--font-cormorant)', fontStyle: 'italic', fontWeight: 600,
+                fontSize: '1.4rem', letterSpacing: '0.08em', color: '#1A1410',
+              }}>Baraka</span>
             </div>
 
             {/* Nav links */}
