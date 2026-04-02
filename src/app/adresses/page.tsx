@@ -110,7 +110,7 @@ export default function AdressesPage() {
               marginTop: '1.5rem', lineHeight: 1.7, maxWidth: '420px',
             }}
           >
-            Retrouvez-nous dans le Val-d&apos;Oise et les Yvelines — chaque boutique, un lien avec le quartier.
+            Retrouvez-nous dans le Val-d&apos;Oise et les Yvelines, chaque boutique, un lien avec le quartier.
           </motion.p>
         </div>
       </section>

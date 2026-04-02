@@ -105,7 +105,7 @@ export default function Histoire() {
               <p>
                 Baraka, en arabe et en langue berbère, signifie la bénédiction.
                 C&apos;est cette grâce discrète que nous cherchons à insuffler
-                dans chaque création — un pain qui nourrit, une viennoiserie
+                dans chaque création, un pain qui nourrit, une viennoiserie
                 qui réjouit, un moment qui dure.
               </p>
             </motion.div>

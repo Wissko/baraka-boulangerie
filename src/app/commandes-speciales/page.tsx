@@ -212,7 +212,7 @@ export default function CommandesSpecialesPage() {
           }}
         />
 
-        {/* Bottom gold line — more prominent */}
+        {/* Bottom gold line, more prominent */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -463,7 +463,7 @@ export default function CommandesSpecialesPage() {
             transition={{ delay: 0.45, duration: 0.75, ease: EASE }}
           >
 
-            {/* Progress bar — 3 steps */}
+            {/* Progress bar, 3 steps */}
             <div style={{
               display: 'flex',
               gap: '6px',
@@ -519,7 +519,7 @@ export default function CommandesSpecialesPage() {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
 
-                  {/* Type de piece — radio */}
+                  {/* Type de piece, radio */}
                   <div>
                     <label style={{ ...labelStyle, color: 'rgba(26,20,16,0.4)', marginBottom: '1.25rem' }}>
                       Type de piece

@@ -110,11 +110,11 @@ export default function HistoirePage() {
             className="font-[var(--font-playfair)] italic text-[#FAF7F2] text-2xl md:text-3xl leading-relaxed"
             style={{ letterSpacing: '0.03em' }}
           >
-            « Le pain est le premier aliment. Il nourrit le corps, rassemble les familles, et rappelle à chacun d&apos;où il vient. »
+            &ldquo;Le pain est le premier aliment. Il nourrit le corps, rassemble les familles, et rappelle à chacun d&apos;où il vient.&rdquo;
           </p>
           <div className="w-16 h-px bg-[#E81C1C] mx-auto mt-8" />
           <p className="mt-4 font-[var(--font-dm-sans)] text-[#E81C1C] text-sm tracking-[0.2em] uppercase">
-            — Fondateur, Baraka Boulangeries
+           , Fondateur, Baraka Boulangeries
           </p>
         </motion.blockquote>
       </section>

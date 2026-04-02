@@ -24,13 +24,13 @@ export default function Hero() {
     <section
       ref={ref}
       className="relative h-screen min-h-[700px] overflow-hidden"
-      aria-label="Baraka Boulangeries — Hero"
+      aria-label="Baraka Boulangeries, Hero"
     >
       {/* Background image with parallax */}
       <motion.div className="absolute inset-0 z-0" style={{ y: imageY }}>
         <Image
           src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=2400&q=90"
-          alt="Boulangerie artisanale Baraka — Croissants et pains frais"
+          alt="Boulangerie artisanale Baraka, Croissants et pains frais"
           fill
           priority
           sizes="100vw"

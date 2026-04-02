@@ -32,7 +32,7 @@ export default function HomePage() {
         >
           <Image
             src="/images/vitrine.jpg"
-            alt="Vitrine Baraka — pâtisseries et viennoiseries"
+            alt="Vitrine Baraka, pâtisseries et viennoiseries"
             fill
             priority
             className="object-cover"
@@ -80,7 +80,7 @@ export default function HomePage() {
             Boulangerie artisanale · Île-de-France
           </motion.p>
 
-          {/* Titre — curtain lift */}
+          {/* Titre, curtain lift */}
           <div style={{ overflow: 'hidden', marginBottom: '1rem' }}>
             <motion.h1
               style={{
@@ -181,7 +181,7 @@ export default function HomePage() {
         </motion.div>
       </main>
 
-      {/* ─── SECTION SAVOIR-FAIRE — split 50/50 baguettes.jpg ─── */}
+      {/* ─── SECTION SAVOIR-FAIRE, split 50/50 baguettes.jpg ─── */}
       <section
         style={{ background: '#FAF7F2' }}
         className="grid grid-cols-1 md:grid-cols-2 min-h-[600px]"
@@ -190,7 +190,7 @@ export default function HomePage() {
         <div className="relative overflow-hidden" style={{ minHeight: '480px' }}>
           <Image
             src="/images/baguettes.jpg"
-            alt="Baguettes sortant du four — fournil Baraka"
+            alt="Baguettes sortant du four, fournil Baraka"
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -259,11 +259,11 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ─── SECTION CRÉATIONS — fraisier plein-bleed ─── */}
+      {/* ─── SECTION CRÉATIONS, fraisier plein-bleed ─── */}
       <section className="relative overflow-hidden" style={{ minHeight: '70vh' }}>
         <Image
           src="/images/fraisier.jpg"
-          alt="Fraisier Baraka — création signature"
+          alt="Fraisier Baraka, création signature"
           fill
           className="object-cover"
           sizes="100vw"
@@ -312,7 +312,7 @@ export default function HomePage() {
             color: 'rgba(250,247,242,0.75)',
           }}>
             Fraisier, tarte au citron, Paris-Brest... Chaque pièce est pensée
-            comme une œuvre — équilibre des textures, précision du goût,
+            comme une œuvre, équilibre des textures, précision du goût,
             beauté du geste.
           </p>
           <div style={{ marginTop: '2.5rem' }}>
@@ -333,7 +333,7 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ─── SECTION WOW — pâtisseries.jpg split inversé ─── */}
+      {/* ─── SECTION WOW, pâtisseries.jpg split inversé ─── */}
       <section
         style={{ background: '#FAF7F2' }}
         className="grid grid-cols-1 md:grid-cols-2 min-h-[600px]"
@@ -379,7 +379,7 @@ export default function HomePage() {
             maxWidth: '420px',
           }}>
             Une vitrine qui change chaque matin. Des couleurs, des parfums,
-            des textures — tout ce qu&apos;il faut pour commencer la journée
+            des textures, tout ce qu&apos;il faut pour commencer la journée
             avec le sourire.
           </p>
         </motion.div>
@@ -388,7 +388,7 @@ export default function HomePage() {
         <div className="relative overflow-hidden order-1 md:order-2" style={{ minHeight: '480px' }}>
           <Image
             src="/images/patisseries.jpg"
-            alt="Vitrine pâtisseries — macarons, tartelettes, religieuses"
+            alt="Vitrine pâtisseries, macarons, tartelettes, religieuses"
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -396,11 +396,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── SECTION WOW — mangues plein-bleed ─── */}
+      {/* ─── SECTION WOW, mangues plein-bleed ─── */}
       <section className="relative overflow-hidden" style={{ minHeight: '60vh' }}>
         <Image
           src="/images/mangues.jpg"
-          alt="Entremets mangue glaçage miroir — Baraka"
+          alt="Entremets mangue glaçage miroir, Baraka"
           fill
           className="object-cover object-center"
           sizes="100vw"

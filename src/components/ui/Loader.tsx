@@ -72,7 +72,7 @@ export default function Loader() {
               </div>
             </motion.div>
 
-            {/* BARAKA text — stroke draw */}
+            {/* BARAKA text, stroke draw */}
             <div className="mb-2">
               <svg viewBox="0 0 260 40" className="w-48 md:w-56" fill="none">
                 <motion.text

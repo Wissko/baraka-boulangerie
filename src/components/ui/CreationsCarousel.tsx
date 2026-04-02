@@ -13,7 +13,7 @@ export default function CreationsCarousel({ items }: { items: Item[] }) {
 
   return (
     <div style={{ overflow: 'hidden', position: 'relative' }}>
-      {/* Fade edges — crème Baraka */}
+      {/* Fade edges, crème Baraka */}
       <div aria-hidden style={{
         position: 'absolute', left: 0, top: 0, bottom: 0, width: '140px', zIndex: 2, pointerEvents: 'none',
         background: 'linear-gradient(to right, #FAF7F2, transparent)',

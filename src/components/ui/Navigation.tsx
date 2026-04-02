@@ -45,7 +45,7 @@ export default function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
 
-          {/* Logo — left aligned */}
+          {/* Logo, left aligned */}
           <Link href="/" className="relative z-10 flex items-center gap-3 group">
             {/* SVG logo with gold tint on scroll/interior pages */}
             <div
@@ -70,7 +70,7 @@ export default function Navigation() {
             </span>
           </Link>
 
-          {/* Center nav links — desktop */}
+          {/* Center nav links, desktop */}
           <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
             {[...leftLinks, ...rightLinks].map((link) => (
               <NavLink key={link.href} href={link.href} label={link.label} scrolled={scrolled} isHero={isHero} />

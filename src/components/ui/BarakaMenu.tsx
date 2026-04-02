@@ -20,7 +20,7 @@ const socials = [
 
 export default function BarakaMenu() {
   const pathname  = usePathname();
-  const isOpen    = useRef(false);  // source of truth — no async desync
+  const isOpen    = useRef(false);  // source of truth, no async desync
 
   const navRef     = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);

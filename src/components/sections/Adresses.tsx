@@ -112,7 +112,7 @@ function BoutiqueCard({
               </span>
               <span className="font-dm text-xs text-ink/40 tracking-widest uppercase">
                 {boutique.city}
-                {boutique.arrondissement && ` — ${boutique.arrondissement}`}
+                {boutique.arrondissement && `, ${boutique.arrondissement}`}
               </span>
               {boutique.tag && (
                 <span className="font-dm text-xs bg-gold/15 text-gold px-2 py-0.5 tracking-wide">

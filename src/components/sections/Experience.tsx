@@ -9,7 +9,7 @@ const pillars = [
     number: "01",
     title: "Savoir-faire",
     subtitle: "Transmission & excellence",
-    body: "Nos artisans sont formés selon les méthodes de la boulangerie française traditionnelle. Chaque geste est précis, chaque façonnage est réfléchi. Le temps ne se négocie pas — un croissant pur beurre demande 3 jours de travail.",
+    body: "Nos artisans sont formés selon les méthodes de la boulangerie française traditionnelle. Chaque geste est précis, chaque façonnage est réfléchi. Le temps ne se négocie pas, un croissant pur beurre demande 3 jours de travail.",
     accent: "3 jours pour un croissant",
   },
   {
@@ -23,7 +23,7 @@ const pillars = [
     number: "03",
     title: "Passion",
     subtitle: "L'âme de la maison",
-    body: "Baraka est née d'un amour sincère pour le pain. Cette passion se retrouve dans la régularité de nos produits, dans l'accueil de nos équipes, et dans le soin apporté à chaque détail — du façonnage à la présentation en vitrine.",
+    body: "Baraka est née d'un amour sincère pour le pain. Cette passion se retrouve dans la régularité de nos produits, dans l'accueil de nos équipes, et dans le soin apporté à chaque détail, du façonnage à la présentation en vitrine.",
     accent: "Depuis 2010",
   },
 ];

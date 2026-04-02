@@ -65,7 +65,7 @@ export default function RootLayout({
       className={`${cormorant.variable} ${playfair.variable} ${dmSans.variable} ${dancing.variable} ${workSans.variable}`}
     >
       <head>
-        <title>Baraka Boulangeries — L&apos;art de la boulangerie française</title>
+        <title>Baraka Boulangeries, L&apos;art de la boulangerie française</title>
         <meta
           name="description"
           content="Baraka, maison de boulangerie française artisanale. Croissants, pains au levain, viennoiseries et pâtisseries d'exception. 5 boutiques en Île-de-France."
