@@ -6,8 +6,8 @@ import { useState, FormEvent } from 'react';
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 const TYPES = [
-  'Gateau de mariage',
-  "Gateau d'anniversaire",
+  'Gâteau de mariage',
+  "Gâteau d'anniversaire",
   'Autre occasion',
 ];
 
@@ -281,7 +281,7 @@ export default function CommandesSpecialesPage() {
             lineHeight: 1.5,
           }}
         >
-          L&apos;art de la creation unique, facon patisserie parisienne.
+          L&apos;art de la création unique, façon pâtisserie parisienne.
         </motion.p>
 
         <motion.p
@@ -299,7 +299,7 @@ export default function CommandesSpecialesPage() {
             letterSpacing: '0.02em',
           }}
         >
-          Creations sur mesure pour vos moments les plus precieux. Chaque piece est concue en etroite collaboration avec notre atelier.
+          Créations sur mesure pour vos moments les plus precieux. Chaque piece est concue en etroite collaboration avec notre atelier.
         </motion.p>
 
         {/* Scroll indicator */}
@@ -379,9 +379,9 @@ export default function CommandesSpecialesPage() {
               lineHeight: 1.75,
               letterSpacing: '0.01em',
             }}>
-              Nos creations sur mesure necessitent un delai minimum de{' '}
+              Nos créations sur mesure nécessitent un délai minimum de{' '}
               <strong style={{ color: '#1A1410', fontWeight: 400 }}>14 jours</strong>{' '}
-              avant la date de votre evenement.
+              avant la date de votre événement.
             </p>
           </div>
         </motion.div>
@@ -436,7 +436,7 @@ export default function CommandesSpecialesPage() {
                   letterSpacing: '0.01em',
                 }}
               >
-                Votre demande a bien ete transmise. Nous reviendrons vers vous sous 48h pour confirmer la disponibilite et les details de votre creation.
+                Votre demande a bien été transmise. Nous reviendrons vers vous sous 48h pour confirmer la disponibilité et les details de votre création.
               </motion.p>
 
               <motion.div
@@ -509,12 +509,12 @@ export default function CommandesSpecialesPage() {
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
 
-              {/* ── SECTION 1 : Votre creation ── */}
+              {/* ── SECTION 1 : Votre création ── */}
               <div style={{ marginBottom: '5rem' }}>
                 <div style={{ ...sectionHeaderStyle, marginBottom: '2.5rem' }}>
                   <span style={sectionNumberStyle}>01</span>
                   <div style={{ flex: 1, height: '1px', background: '#C9A96E', opacity: 0.3 }} />
-                  <span style={{ letterSpacing: '0.3em', fontSize: '0.55rem' }}>Votre creation</span>
+                  <span style={{ letterSpacing: '0.3em', fontSize: '0.55rem' }}>Votre création</span>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
@@ -617,7 +617,7 @@ export default function CommandesSpecialesPage() {
                         letterSpacing: '0.01em',
                         lineHeight: 1.6,
                       }}>
-                        Nos creations sur mesure necessitent un delai minimum de 14 jours. Merci de choisir une date ulterieure.
+                        Nos créations sur mesure nécessitent un délai minimum de 14 jours. Merci de choisir une date ultérieure.
                       </p>
                     )}
                   </div>
@@ -676,7 +676,7 @@ export default function CommandesSpecialesPage() {
                       <textarea
                         required
                         rows={5}
-                        placeholder="Ex : Gateau a etages, fleurs en sucre, couleurs ivoire et rose..."
+                        placeholder="Ex : Gâteau a etages, fleurs en sucre, couleurs ivoire et rose..."
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         onFocus={() => setFocused('description')}
@@ -739,17 +739,17 @@ export default function CommandesSpecialesPage() {
                 opacity: 0.5,
               }} />
 
-              {/* ── SECTION 3 : Vos coordonnees ── */}
+              {/* ── SECTION 3 : Vos coordonnées ── */}
               <div style={{ marginBottom: '4.5rem' }}>
                 <div style={{ ...sectionHeaderStyle, marginBottom: '2.5rem' }}>
                   <span style={sectionNumberStyle}>03</span>
                   <div style={{ flex: 1, height: '1px', background: '#C9A96E', opacity: 0.3 }} />
-                  <span style={{ letterSpacing: '0.3em', fontSize: '0.55rem' }}>Vos coordonnees</span>
+                  <span style={{ letterSpacing: '0.3em', fontSize: '0.55rem' }}>Vos coordonnées</span>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '3.5rem' }}>
 
-                  {/* Prenom + Nom */}
+                  {/* Prénom + Nom */}
                   <div style={{
                     display: 'grid',
                     gridTemplateColumns: '1fr 1fr',
@@ -757,7 +757,7 @@ export default function CommandesSpecialesPage() {
                   }}>
                     <div>
                       <label style={{ ...labelStyle, color: focused === 'prenom' ? '#C9A96E' : 'rgba(26,20,16,0.4)' }}>
-                        Prenom
+                        Prénom
                       </label>
                       <div style={inputWrapperStyle('prenom')}>
                         <input
@@ -807,10 +807,10 @@ export default function CommandesSpecialesPage() {
                     </div>
                   </div>
 
-                  {/* Telephone */}
+                  {/* Téléphone */}
                   <div>
                     <label style={{ ...labelStyle, color: focused === 'telephone' ? '#C9A96E' : 'rgba(26,20,16,0.4)' }}>
-                      Telephone
+                      Téléphone
                     </label>
                     <div style={inputWrapperStyle('telephone')}>
                       <input

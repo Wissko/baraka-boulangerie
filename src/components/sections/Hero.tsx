@@ -106,7 +106,7 @@ export default function Hero() {
         </motion.button>
       </motion.div>
 
-      {/* Bottom decorative line */}
+      {/* Bottom décorative line */}
       <div className="absolute bottom-0 left-0 right-0 z-20 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
     </section>
   );

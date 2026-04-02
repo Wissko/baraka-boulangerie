@@ -184,7 +184,7 @@ export default function Creations() {
       : products.filter((p) => p.category === active);
 
   return (
-    <section id="creations" className="py-32 md:py-40 bg-cream-warm">
+    <section id="créations" className="py-32 md:py-40 bg-cream-warm">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div ref={ref} className="mb-16">
