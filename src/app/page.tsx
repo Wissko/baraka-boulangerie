@@ -316,7 +316,7 @@ export default function HomePage() {
             beauté du geste.
           </p>
           <div style={{ marginTop: '2.5rem' }}>
-            <Link href="/créations" className="group relative inline-block">
+            <Link href="/creations" className="group relative inline-block">
               <span style={{
                 fontFamily: 'var(--font-dm-sans)',
                 fontWeight: 400,
@@ -387,7 +387,7 @@ export default function HomePage() {
         {/* Image pâtisseries */}
         <div className="relative overflow-hidden order-1 md:order-2" style={{ minHeight: '480px' }}>
           <Image
-            src="/images/pâtisseries.jpg"
+            src="/images/patisseries.jpg"
             alt="Vitrine pâtisseries — macarons, tartelettes, religieuses"
             fill
             className="object-cover"
@@ -428,7 +428,7 @@ export default function HomePage() {
             La baraka, c&apos;est l&apos;instant.
           </p>
           <div style={{ width: '60px', height: '1px', background: 'var(--color-rouge)', margin: '0 auto 2rem' }} />
-          <Link href="/créations" className="group relative inline-block">
+          <Link href="/creations" className="group relative inline-block">
             <span style={{
               fontFamily: 'var(--font-dm-sans)',
               fontWeight: 300,

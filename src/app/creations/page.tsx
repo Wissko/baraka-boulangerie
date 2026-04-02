@@ -10,7 +10,7 @@ const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 /* ── Triptych items ─────────────────────────────────────── */
 const triptych = [
-  { src: '/images/pâtisseries.jpg', label: 'Pâtisseries' },
+  { src: '/images/patisseries.jpg', label: 'Pâtisseries' },
   { src: '/images/fraisier.jpg',    label: 'Fraisier' },
   { src: '/images/mangues.jpg',     label: 'Entremets' },
 ];
@@ -181,7 +181,7 @@ export default function CreationsPage() {
 
         <CreationsCarousel items={[
           { img: '/images/fraisier.jpg',     name: 'Fraisier',           cat: 'Pâtisserie' },
-          { img: '/images/pâtisseries.jpg',  name: 'Vitrine du Jour',    cat: 'Sélection' },
+          { img: '/images/patisseries.jpg',  name: 'Vitrine du Jour',    cat: 'Sélection' },
           { img: '/images/mangues.jpg',      name: 'Entremets Mangue',   cat: 'Signature' },
           { img: '/images/vitrine-noel.jpg', name: 'Collection Fêtes',   cat: 'Édition Limitée' },
           { img: '/images/baguettes.jpg',    name: 'Boulangerie',        cat: 'Artisanat' },
