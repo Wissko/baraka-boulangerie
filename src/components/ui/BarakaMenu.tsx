@@ -107,16 +107,12 @@ export default function BarakaMenu() {
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
       }}>
         {/* Logo SVG */}
-        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
           <img
             src="/images/Design sans titre.svg"
             alt="Baraka"
             style={{ width: 44, height: 44, objectFit: 'contain' }}
           />
-          <span style={{
-            fontFamily: 'var(--font-cormorant)', fontStyle: 'italic', fontWeight: 600,
-            fontSize: '1.5rem', letterSpacing: '0.08em', color: '#1A1410',
-          }}>Baraka</span>
         </Link>
 
         {/* Menu button */}
@@ -210,25 +206,23 @@ export default function BarakaMenu() {
                       const bg = e.currentTarget.querySelector('.link-bg') as HTMLElement;
                       const heading = e.currentTarget.querySelector('.link-heading') as HTMLElement;
                       if (bg) bg.style.transform = 'scale3d(1,1,1)';
-                      if (heading) {
-                        heading.style.color = '#FAF7F2';
-                        heading.style.transform = 'translateY(-1em)';
-                      }
+                      if (heading) heading.style.color = '#E81C1C';
                     }}
                     onMouseLeave={e => {
                       const bg = e.currentTarget.querySelector('.link-bg') as HTMLElement;
                       const heading = e.currentTarget.querySelector('.link-heading') as HTMLElement;
                       if (bg) bg.style.transform = 'scale3d(1,0,1)';
-                      if (heading) {
-                        heading.style.color = '#1A1410';
-                        heading.style.transform = 'translateY(0)';
-                      }
+                      if (heading) heading.style.color = '#1A1410';
                     }}
                   >
                     <div className="link-bg" style={{
-                      position: 'absolute', inset: 0, background: '#1A1410',
+                      position: 'absolute', inset: 0,
+                      background: 'rgba(255,255,255,0.45)',
+                      backdropFilter: 'blur(12px)',
+                      WebkitBackdropFilter: 'blur(12px)',
+                      border: '1px solid rgba(255,255,255,0.3)',
                       transformOrigin: '50% 100%', transform: 'scale3d(1,0,1)',
-                      transition: 'transform 0.55s cubic-bezier(0.65, 0.05, 0, 1)', zIndex: 0,
+                      transition: 'transform 0.45s cubic-bezier(0.65, 0.05, 0, 1)', zIndex: 0,
                     }} />
                     <span style={{
                       fontFamily: 'var(--font-dm-sans)', fontWeight: 400, fontSize: '0.7rem',
@@ -239,7 +233,7 @@ export default function BarakaMenu() {
                       fontSize: 'clamp(2.6rem, 7vw, 4.2rem)', lineHeight: 0.9,
                       textTransform: 'uppercase', color: '#1A1410',
                       position: 'relative', zIndex: 1,
-                      transition: 'transform 0.55s cubic-bezier(0.65, 0.05, 0, 1), color 0s',
+                      transition: 'color 0.3s ease',
                       letterSpacing: '-0.02em',
                       display: 'block',
                     }}>{link.label}</span>
