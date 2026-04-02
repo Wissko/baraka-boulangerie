@@ -851,7 +851,6 @@ export default function CommandesSpecialesPage() {
                     fontFamily: 'var(--font-dm-sans)',
                     fontWeight: 300,
                     fontSize: '0.68rem',
-                    letterSpacing: '0.3em',
                     textTransform: 'uppercase',
                     color: '#FAF7F2',
                     background: loading ? 'rgba(196,30,58,0.55)' : '#C41E3A',
