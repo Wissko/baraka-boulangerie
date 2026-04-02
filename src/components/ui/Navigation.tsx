@@ -49,11 +49,7 @@ export default function Navigation() {
           <Link href="/" className="relative z-10 flex items-center gap-3 group">
             {/* SVG logo with gold tint on scroll/interior pages */}
             <div
-              className={`relative transition-all duration-500 ${
-                scrolled || !isHero
-                  ? 'brightness-[0.2] sepia saturate-[4] hue-rotate-[5deg]'
-                  : 'brightness-0 invert'
-              }`}
+              className="relative"
               style={{ width: 48, height: 48 }}
             >
               <Image
