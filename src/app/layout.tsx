@@ -10,6 +10,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import BarakaMenu from "@/components/ui/BarakaMenu";
+import Loader from "@/components/ui/Loader";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -74,6 +75,7 @@ export default function RootLayout({
         <meta property="og:locale" content="fr_FR" />
       </head>
       <body>
+        <Loader />
         <BarakaMenu />
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
