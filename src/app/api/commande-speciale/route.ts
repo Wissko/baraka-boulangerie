@@ -1,29 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
-import crypto from 'crypto';
 
-function buildAcceptToken(payload: {
-  email: string;
-  prenom: string;
-  type: string;
-  date: string;
-}): string {
-  const secret = process.env.ACCEPT_SECRET ?? 'dev-secret';
-  const data = {
-    ...payload,
-    exp: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 jours
-  };
-  const encoded = Buffer.from(JSON.stringify(data))
-    .toString('base64')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
-  const hmac = crypto
-    .createHmac('sha256', secret)
-    .update(encoded)
-    .digest('hex');
-  return `${encoded}.${hmac}`;
-}
+const TBS_DASHBOARD_URL = process.env.TBS_DASHBOARD_URL || 'https://tbs-dashboard-wisskos-projects.vercel.app';
+const TBS_API_KEY = process.env.TBS_API_KEY || '';
 
 export async function POST(req: NextRequest) {
   try {
@@ -53,72 +31,34 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+    // Envoyer la commande au TBS Dashboard
+    const dashboardResponse = await fetch(`${TBS_DASHBOARD_URL}/api/commandes`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': TBS_API_KEY,
       },
+      body: JSON.stringify({
+        type,
+        date_evenement: date,
+        personnes: String(personnes),
+        description,
+        allergies: allergies || '',
+        prenom,
+        nom,
+        email,
+        telephone,
+      }),
     });
 
-    const dateFormatted = new Date(date).toLocaleDateString('fr-FR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    });
-
-    // Génération du token d'acceptation
-    const token = buildAcceptToken({ email, prenom, type, date });
-    const siteUrl = (process.env.SITE_URL ?? '').replace(/\/$/, '');
-    const acceptUrl = `${siteUrl}/api/accepter-commande?token=${token}`;
-
-    // Email à la boulangerie
-    await transporter.sendMail({
-      from: `"Baraka Site" <${process.env.SMTP_USER}>`,
-      to: process.env.BAKERY_EMAIL,
-      replyTo: email,
-      subject: `[Baraka] Nouvelle demande de commande speciale - ${type} - ${dateFormatted}`,
-      text: `Nouvelle demande recue via le site.
-
-Type : ${type}
-Date souhaitee : ${dateFormatted}
-Nombre de personnes : ${personnes}
-Client : ${prenom} ${nom}
-Email : ${email}
-Telephone : ${telephone}
-
-Description :
-${description}
-
-Allergies / contraintes :
-${allergies || 'Aucune'}
-
----
-Repondre directement a cet email pour contacter le client.
-
----
-✅ ACCEPTER CETTE COMMANDE :
-${acceptUrl}
-
-Ce lien est valable 7 jours.`,
-    });
-
-    // Email de confirmation au client
-    await transporter.sendMail({
-      from: `"Baraka Boulangeries" <${process.env.SMTP_USER}>`,
-      to: email,
-      subject: `Baraka - Votre demande de commande speciale a bien ete recue`,
-      text: `Cher(e) ${prenom},
-
-Nous avons bien recu votre demande pour ${type} prevu(e) le ${dateFormatted}.
-
-Notre equipe l'examinera et reviendra vers vous sous 48h pour confirmer la disponibilite et discuter des details de votre creation.
-
-A tres bientot,
-L'equipe Baraka Boulangeries`,
-    });
+    if (!dashboardResponse.ok) {
+      const errorData = await dashboardResponse.json().catch(() => ({}));
+      console.error('Erreur TBS Dashboard:', dashboardResponse.status, errorData);
+      return NextResponse.json(
+        { error: 'Une erreur est survenue lors de l\'envoi de votre demande.' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
