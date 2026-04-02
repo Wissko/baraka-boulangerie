@@ -178,19 +178,12 @@ export default function BarakaMenu() {
             overflowY: 'auto',
           }}>
             {/* Logo SVG dans le panel */}
-            <div style={{
-              position: 'absolute', top: '1.5rem', left: '2.5rem',
-              display: 'flex', alignItems: 'center', gap: '0.65rem',
-            }}>
+            <div style={{ position: 'absolute', top: '1.5rem', left: '2.5rem' }}>
               <img
                 src="/images/Design sans titre.svg"
                 alt="Baraka"
                 style={{ width: 40, height: 40, objectFit: 'contain' }}
               />
-              <span style={{
-                fontFamily: 'var(--font-cormorant)', fontStyle: 'italic', fontWeight: 600,
-                fontSize: '1.4rem', letterSpacing: '0.08em', color: '#1A1410',
-              }}>Baraka</span>
             </div>
 
             {/* Nav links */}
