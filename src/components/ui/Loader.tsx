@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const EASE_LUXURY = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -9,7 +10,7 @@ export default function Loader() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2600);
+    const timer = setTimeout(() => setLoading(false), 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -19,11 +20,11 @@ export default function Loader() {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.7, ease: EASE_LUXURY }}
+          transition={{ duration: 0.8, ease: EASE_LUXURY }}
           className="fixed inset-0 z-[200] flex items-center justify-center"
           style={{ backgroundColor: "#1A1410" }}
         >
-          {/* Subtle grain overlay */}
+          {/* Grain overlay */}
           <div
             className="absolute inset-0 opacity-[0.03] pointer-events-none"
             style={{
@@ -38,45 +39,71 @@ export default function Loader() {
               className="h-px"
               style={{ backgroundColor: "#C9A96E" }}
               initial={{ width: 0, opacity: 0 }}
-              animate={{ width: 48, opacity: 0.4 }}
+              animate={{ width: 48, opacity: 0.35 }}
               transition={{ duration: 1, delay: 0.2, ease: EASE_LUXURY }}
             />
 
-            {/* Baraka SVG stroke draw */}
-            <div className="mt-8 mb-2">
-              <svg viewBox="0 0 260 60" className="w-52 md:w-64" fill="none">
-                {/* "BARAKA" stroke draw */}
+            {/* Logo circle with glow */}
+            <motion.div
+              className="mt-10 mb-6 relative"
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.3, ease: EASE_LUXURY }}
+            >
+              {/* Soft glow behind logo */}
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: "radial-gradient(circle, rgba(201,169,110,0.12) 0%, transparent 70%)",
+                  transform: "scale(1.6)",
+                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.2, delay: 0.8 }}
+              />
+              <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden">
+                <Image
+                  src="/images/logo.jpg"
+                  alt="Baraka"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </motion.div>
+
+            {/* BARAKA text — stroke draw */}
+            <div className="mb-2">
+              <svg viewBox="0 0 260 40" className="w-48 md:w-56" fill="none">
                 <motion.text
                   x="130"
-                  y="32"
+                  y="28"
                   textAnchor="middle"
                   fontFamily="var(--font-cormorant), Georgia, serif"
-                  fontSize="30"
+                  fontSize="24"
                   fontWeight="300"
-                  letterSpacing="12"
+                  letterSpacing="14"
                   fill="none"
                   stroke="#C9A96E"
-                  strokeWidth="0.6"
-                  initial={{ strokeDasharray: 800, strokeDashoffset: 800 }}
+                  strokeWidth="0.5"
+                  initial={{ strokeDasharray: 600, strokeDashoffset: 600 }}
                   animate={{ strokeDashoffset: 0 }}
-                  transition={{ duration: 2, ease: "easeInOut" }}
+                  transition={{ duration: 1.8, delay: 0.6, ease: "easeInOut" }}
                 >
                   BARAKA
                 </motion.text>
-
-                {/* Fill in after stroke */}
                 <motion.text
                   x="130"
-                  y="32"
+                  y="28"
                   textAnchor="middle"
                   fontFamily="var(--font-cormorant), Georgia, serif"
-                  fontSize="30"
+                  fontSize="24"
                   fontWeight="300"
-                  letterSpacing="12"
+                  letterSpacing="14"
                   fill="#C9A96E"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 1.6 }}
+                  transition={{ duration: 0.5, delay: 2 }}
                 >
                   BARAKA
                 </motion.text>
@@ -87,14 +114,14 @@ export default function Loader() {
             <motion.p
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "0.55rem",
+                fontSize: "0.5rem",
                 letterSpacing: "0.35em",
                 textTransform: "uppercase",
-                color: "rgba(201, 169, 110, 0.3)",
+                color: "rgba(201, 169, 110, 0.25)",
               }}
-              initial={{ opacity: 0, y: 6 }}
+              initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.8, ease: EASE_LUXURY }}
+              transition={{ duration: 0.5, delay: 2.2, ease: EASE_LUXURY }}
             >
               Boulangerie artisanale
             </motion.p>
@@ -104,8 +131,8 @@ export default function Loader() {
               className="h-px mt-8"
               style={{ backgroundColor: "#C9A96E" }}
               initial={{ width: 0, opacity: 0 }}
-              animate={{ width: 48, opacity: 0.4 }}
-              transition={{ duration: 1, delay: 2, ease: EASE_LUXURY }}
+              animate={{ width: 48, opacity: 0.35 }}
+              transition={{ duration: 1, delay: 2.4, ease: EASE_LUXURY }}
             />
           </div>
         </motion.div>
